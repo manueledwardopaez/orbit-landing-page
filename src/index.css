@@ -30,6 +30,150 @@ body {
   @apply bg-[#060812] text-white font-sans antialiased;
 }
 
+/* ── Star twinkle ────────────────────────────────────────────────────────── */
+@keyframes twinkle {
+  0%, 100% { opacity: var(--star-opacity); transform: scale(1); }
+  50%       { opacity: calc(var(--star-opacity) * 0.2); transform: scale(0.6); }
+}
+
+/* ── Astronaut float (features) ──────────────────────────────────────────── */
+@keyframes float-drift {
+  0%   { transform: translate(0px, 0px) rotate(-4deg); }
+  25%  { transform: translate(12px, -22px) rotate(2deg); }
+  50%  { transform: translate(-6px, -38px) rotate(-2deg); }
+  75%  { transform: translate(-16px, -18px) rotate(4deg); }
+  100% { transform: translate(0px, 0px) rotate(-4deg); }
+}
+
+.astronaut-float {
+  animation: float-drift 9s ease-in-out infinite;
+  filter: drop-shadow(0 0 24px rgba(100, 200, 255, 0.3));
+}
+
+/* ── Astronaut with iPad float (integrations) ────────────────────────────── */
+@keyframes float-ipad {
+  0%   { transform: translate(0px, 0px) rotate(2deg); }
+  25%  { transform: translate(-10px, -24px) rotate(-2deg); }
+  55%  { transform: translate(6px, -40px) rotate(3deg); }
+  80%  { transform: translate(14px, -18px) rotate(-1deg); }
+  100% { transform: translate(0px, 0px) rotate(2deg); }
+}
+
+.astronaut-ipad-float {
+  animation: float-ipad 8s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 32px rgba(80, 120, 255, 0.35))
+    drop-shadow(0 0 64px rgba(0, 200, 255, 0.15));
+}
+
+/* ── Typewriter cursor ───────────────────────────────────────────────────── */
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  margin-left: 4px;
+  background: rgba(0, 210, 255, 0.9);
+  border-radius: 2px;
+  animation: cursor-blink 0.85s step-end infinite;
+  vertical-align: text-bottom;
+  height: 0.85em;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Marquee carousel ────────────────────────────────────────────────────── */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.marquee-track {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Each animated strip is 2× viewport so -50% = exactly one viewport shift */
+.marquee-left {
+  display: flex;
+  animation: marquee-left 32s linear infinite;
+}
+
+.marquee-right {
+  display: flex;
+  animation: marquee-right 28s linear infinite;
+}
+
+/* Each half fills exactly one full viewport width, cards evenly distributed */
+.marquee-half {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 16px;
+  flex-shrink: 0;
+}
+
+.marquee-track:hover .marquee-left,
+.marquee-track:hover .marquee-right {
+  animation-play-state: paused;
+}
+
+/* ── Integration tool card ───────────────────────────────────────────────── */
+.tool-card {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  /* Grayscale + dim by default */
+  filter: grayscale(1) opacity(0.4);
+  transition: filter 0.4s ease, transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+}
+
+.tool-card:hover {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Edge gradient overlays wrapper */
+.marquee-fade-wrapper {
+  position: relative;
+}
+
+.marquee-fade-wrapper::before,
+.marquee-fade-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.marquee-fade-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #060812 0%, rgba(6,8,18,0.85) 40%, transparent 100%);
+}
+
+.marquee-fade-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #060812 0%, rgba(6,8,18,0.85) 40%, transparent 100%);
+}
+
 .hero-bottom-fade {
   position: absolute;
   bottom: 0;
@@ -50,12 +194,85 @@ body {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(12px);
-  transition: border-color 0.3s, background 0.3s;
+  transition: border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Shine sweep on hover */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(0, 210, 255, 0.06) 60%,
+    transparent 80%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.feature-card:hover::before {
+  left: 130%;
+}
+
+/* Top edge glow on hover */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.6), rgba(100, 160, 255, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.feature-card:hover::after {
+  opacity: 1;
 }
 
 .feature-card:hover {
   background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(0, 210, 255, 0.2);
+  border-color: rgba(0, 210, 255, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(0, 210, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 24px rgba(0, 210, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Icon container pulse on card hover */
+.feature-card:hover .feature-icon {
+  background: rgba(0, 210, 255, 0.12);
+  box-shadow: 0 0 16px rgba(0, 210, 255, 0.2);
+  transform: scale(1.1) rotate(-3deg);
+}
+
+.feature-icon {
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+/* ── Testimonial avatar: grayscale by default, color on card hover ───────── */
+.testimonial-avatar {
+  filter: grayscale(1) brightness(0.8);
+  transition: filter 0.4s ease;
+}
+
+.feature-card:hover .testimonial-avatar {
+  filter: grayscale(0) brightness(1);
 }
 
 /* ── Bottom-glow button ──────────────────────────────────────────────────── */
@@ -117,10 +334,41 @@ body {
 .hero-bg {
   background-image:
     linear-gradient(to bottom, rgba(10, 5, 2, 0.1), rgba(10, 5, 2, 0.4)),
-    url('./Gemini_Generated_Image_qiwcs4qiwcs4qiwc.png');
+    url('./Hero_bg.png');
   background-size: cover;
   background-position: center;
   position: fixed;
   inset: 0;
   z-index: -2;
+}
+
+.testimonials-bg {
+  background-image:
+    url('./Group 1.png');
+  background-size: cover;
+  background-position: center top;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Top and bottom fades to blend with adjacent sections */
+.testimonials-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      #060812 0%,
+      rgba(6, 8, 18, 0.3) 15%,
+      rgba(6, 8, 18, 0.1) 40%,
+      rgba(6, 8, 18, 0.1) 60%,
+      rgba(6, 8, 18, 0.4) 85%,
+      #060812 100%
+    );
+  z-index: 1;
 }
