@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /home/edwardo/Descargas/orbit-workflow -name *.png -o -name *.jpg -o -name *.jpeg -o -name *.webp)",
+      "Bash(npx shadcn@latest add @aceternity/3d-card-demo)",
+      "Bash(printf 'Y\\\\n\\\\n\\\\n\\\\n\\\\n\\\\n\\\\n\\\\n')",
+      "Bash(npx shadcn@latest init)"
+    ]
+  }
+}
