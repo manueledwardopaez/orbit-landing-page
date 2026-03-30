@@ -10,6 +10,7 @@ import Particles from "./Particles";
 import ShinyText from "../components/ShinyText";
 import DecryptedText from "../components/DecryptedText";
 import LogoLoop from "../components/LogoLoop";
+import LightRays from "../components/LightRays";
 
 const BASE = "Launch Your ";
 const PHRASES = [
@@ -742,6 +743,22 @@ export default function App() {
       <section className="relative z-10 px-4 pt-40 pb-32 overflow-hidden">
         {/* Background image */}
         <div className="testimonials-bg" />
+
+        {/* Light rays — above bg image, below content */}
+        <div className="absolute inset-0 z-[1] pointer-events-none">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#00c8ff"
+            raysSpeed={0.4}
+            lightSpread={2.2}
+            rayLength={1.4}
+            pulsating
+            fadeDistance={0.85}
+            followMouse
+            mouseInfluence={0.06}
+            distortion={0.1}
+          />
+        </div>
 
         <div className="relative z-10 max-w-6xl mx-auto">
           <motion.div
