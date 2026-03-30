@@ -4,7 +4,8 @@
       "Bash(find /home/edwardo/Descargas/orbit-workflow -name *.png -o -name *.jpg -o -name *.jpeg -o -name *.webp)",
       "Bash(npx shadcn@latest add @aceternity/3d-card-demo)",
       "Bash(printf 'Y\\\\n\\\\n\\\\n\\\\n\\\\n\\\\n\\\\n\\\\n')",
-      "Bash(npx shadcn@latest init)"
+      "Bash(npx shadcn@latest init)",
+      "Bash(node -e \"const si = require\\(''''./node_modules/react-icons/si/index.js''''\\); console.log\\(Object.keys\\(si\\).filter\\(k => k.toLowerCase\\(\\).includes\\(''''amazon''''\\)\\).join\\(''''\\\\n''''\\)\\)\")"
     ]
   }
 }

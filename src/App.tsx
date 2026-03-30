@@ -1,6 +1,11 @@
 import { motion } from "motion/react";
-import { useState, useEffect, useMemo, type ReactNode } from "react";
+import { useState, useEffect, useMemo, type ReactNode, type ElementType } from "react";
 import { Sparkles, ChevronRight, Zap, GitBranch, BarChart3, Shield, Bell, Puzzle, Star, Twitter, Github, Linkedin, ArrowRight } from "lucide-react";
+import {
+  SiSlack, SiGithub, SiNotion, SiJira, SiFigma, SiLinear, SiStripe, SiVercel,
+  SiZoom, SiHubspot, SiZapier, SiIntercom, SiSalesforce, SiDatadog, SiTwilio,
+} from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 import Particles from "./Particles";
 
 const BASE = "Launch Your ";
@@ -12,39 +17,40 @@ const PHRASES = [
 ];
 
 /* ── Integration tool data ─────────────────────────────────────────────── */
-type Tool = { name: string; letter: string; color: string; glow: string; bg: string };
+type Tool = { name: string; icon: ElementType; color: string; glow: string; bg: string };
 
 const TOOLS_ROW1: Tool[] = [
-  { name: "Slack",    letter: "S", color: "#ECB22E", glow: "rgba(236,178,46,0.35)",  bg: "rgba(74,21,75,0.25)"    },
-  { name: "GitHub",   letter: "G", color: "#e6edf3", glow: "rgba(230,237,243,0.2)",  bg: "rgba(36,41,46,0.35)"    },
-  { name: "Notion",   letter: "N", color: "#ffffff", glow: "rgba(255,255,255,0.18)", bg: "rgba(25,25,25,0.35)"    },
-  { name: "Jira",     letter: "J", color: "#4BADE8", glow: "rgba(75,173,232,0.35)",  bg: "rgba(0,82,204,0.2)"     },
-  { name: "Figma",    letter: "F", color: "#F24E1E", glow: "rgba(242,78,30,0.35)",   bg: "rgba(242,78,30,0.15)"   },
-  { name: "Linear",   letter: "L", color: "#5E6AD2", glow: "rgba(94,106,210,0.35)",  bg: "rgba(94,106,210,0.15)"  },
-  { name: "Stripe",   letter: "S", color: "#635BFF", glow: "rgba(99,91,255,0.35)",   bg: "rgba(99,91,255,0.15)"   },
-  { name: "Vercel",   letter: "V", color: "#ffffff", glow: "rgba(255,255,255,0.2)",  bg: "rgba(0,0,0,0.4)"        },
+  { name: "Slack",    icon: SiSlack,             color: "#ECB22E", glow: "rgba(236,178,46,0.35)",  bg: "rgba(74,21,75,0.25)"    },
+  { name: "GitHub",   icon: SiGithub,            color: "#e6edf3", glow: "rgba(230,237,243,0.2)",  bg: "rgba(36,41,46,0.35)"    },
+  { name: "Notion",   icon: SiNotion,            color: "#ffffff", glow: "rgba(255,255,255,0.18)", bg: "rgba(25,25,25,0.35)"    },
+  { name: "Jira",     icon: SiJira,              color: "#4BADE8", glow: "rgba(75,173,232,0.35)",  bg: "rgba(0,82,204,0.2)"     },
+  { name: "Figma",    icon: SiFigma,             color: "#F24E1E", glow: "rgba(242,78,30,0.35)",   bg: "rgba(242,78,30,0.15)"   },
+  { name: "Linear",   icon: SiLinear,            color: "#5E6AD2", glow: "rgba(94,106,210,0.35)",  bg: "rgba(94,106,210,0.15)"  },
+  { name: "Stripe",   icon: SiStripe,            color: "#635BFF", glow: "rgba(99,91,255,0.35)",   bg: "rgba(99,91,255,0.15)"   },
+  { name: "Vercel",   icon: SiVercel,            color: "#ffffff", glow: "rgba(255,255,255,0.2)",  bg: "rgba(0,0,0,0.4)"        },
 ];
 
 const TOOLS_ROW2: Tool[] = [
-  { name: "AWS",       letter: "A", color: "#FF9900", glow: "rgba(255,153,0,0.35)",   bg: "rgba(255,153,0,0.12)"   },
-  { name: "Zoom",      letter: "Z", color: "#2D8CFF", glow: "rgba(45,140,255,0.35)",  bg: "rgba(45,140,255,0.12)"  },
-  { name: "HubSpot",   letter: "H", color: "#FF7A59", glow: "rgba(255,122,89,0.35)",  bg: "rgba(255,122,89,0.12)"  },
-  { name: "Zapier",    letter: "Z", color: "#FF4A00", glow: "rgba(255,74,0,0.35)",    bg: "rgba(255,74,0,0.12)"    },
-  { name: "Intercom",  letter: "I", color: "#1F8EFA", glow: "rgba(31,142,250,0.35)",  bg: "rgba(31,142,250,0.12)"  },
-  { name: "Salesforce",letter: "S", color: "#00A1E0", glow: "rgba(0,161,224,0.35)",   bg: "rgba(0,161,224,0.12)"   },
-  { name: "Datadog",   letter: "D", color: "#632CA6", glow: "rgba(99,44,166,0.35)",   bg: "rgba(99,44,166,0.12)"   },
-  { name: "Twilio",    letter: "T", color: "#F22F46", glow: "rgba(242,47,70,0.35)",   bg: "rgba(242,47,70,0.12)"   },
+  { name: "AWS",       icon: FaAws,               color: "#FF9900", glow: "rgba(255,153,0,0.35)",   bg: "rgba(255,153,0,0.12)"   },
+  { name: "Zoom",      icon: SiZoom,              color: "#2D8CFF", glow: "rgba(45,140,255,0.35)",  bg: "rgba(45,140,255,0.12)"  },
+  { name: "HubSpot",   icon: SiHubspot,           color: "#FF7A59", glow: "rgba(255,122,89,0.35)",  bg: "rgba(255,122,89,0.12)"  },
+  { name: "Zapier",    icon: SiZapier,            color: "#FF4A00", glow: "rgba(255,74,0,0.35)",    bg: "rgba(255,74,0,0.12)"    },
+  { name: "Intercom",  icon: SiIntercom,          color: "#1F8EFA", glow: "rgba(31,142,250,0.35)",  bg: "rgba(31,142,250,0.12)"  },
+  { name: "Salesforce",icon: SiSalesforce,        color: "#00A1E0", glow: "rgba(0,161,224,0.35)",   bg: "rgba(0,161,224,0.12)"   },
+  { name: "Datadog",   icon: SiDatadog,           color: "#632CA6", glow: "rgba(99,44,166,0.35)",   bg: "rgba(99,44,166,0.12)"   },
+  { name: "Twilio",    icon: SiTwilio,            color: "#F22F46", glow: "rgba(242,47,70,0.35)",   bg: "rgba(242,47,70,0.12)"   },
 ];
 
 function renderToolCard(tool: Tool, i: number) {
+  const Icon = tool.icon;
   return (
     <div key={i} className="tool-card">
       {/* Icon badge — colored, grayscaled by parent filter, revives on hover */}
       <div
-        className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
+        className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
         style={{ color: tool.color, background: tool.bg, border: `1px solid ${tool.glow}` }}
       >
-        {tool.letter}
+        <Icon size={18} />
       </div>
       {/* Name */}
       <span
@@ -675,7 +681,7 @@ export default function App() {
 
           {/* Bottom bar */}
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-white/25">© 2025 Orbit Workflow, Inc. All rights reserved.</p>
+            <p className="text-xs text-white/25">© {new Date().getFullYear()} Orbit Workflow, Inc. All rights reserved.</p>
             <p className="text-xs text-white/25">Made with care for teams that dare to move faster.</p>
           </div>
         </div>
