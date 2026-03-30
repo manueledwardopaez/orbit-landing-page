@@ -15,7 +15,7 @@ const toLogoNodes = (tools: Tool[]) =>
       node: (
         <div className="tool-card">
           <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+            className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
             style={{ color: tool.color, background: tool.bg, border: `1px solid ${tool.glow}` }}
           >
             <Icon size={18} />
@@ -36,7 +36,7 @@ const LOGOS_ROW2 = toLogoNodes(TOOLS_ROW2);
 
 export default function IntegrationsSection() {
   return (
-    <section className="relative z-10 bg-[#03040e] pt-32 pb-32 overflow-hidden">
+    <section className="relative z-10 bg-[#03040e] pt-32 pb-32 overflow-hidden" id="integration">
 
       {/* Vibrant space background */}
       <StarsBackgroundVibrant />
@@ -72,7 +72,7 @@ export default function IntegrationsSection() {
             <ScrollBlur>
               <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
                 <ShinyText text="Works with your" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
-                <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
                   favorite tools
                 </span>
               </h2>

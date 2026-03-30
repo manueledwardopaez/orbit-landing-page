@@ -8,11 +8,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-4">
+            <a href="#">
               <img
-                src="/images/Astronaut-Helmet-PNG-File.png"
-                alt="Orbit logo"
-                className="w-8 h-8 rounded-full object-cover"
-              />
+                  src="/images/Astronaut-Helmet-PNG-File.webp"
+                  alt="Orbit logo"
+                  className="w-9 h-9 rounded-full object-cover"
+                />
+            </a>
               <span className="font-display font-bold text-lg">Orbit</span>
             </div>
             <p className="text-white/40 text-sm leading-relaxed max-w-xs">

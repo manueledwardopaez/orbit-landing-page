@@ -9,7 +9,7 @@ import { TESTIMONIALS } from "../utils/constants";
 
 export default function TestimonialsSection() {
   return (
-    <section className="relative z-10 px-4 pt-40 pb-32 overflow-hidden">
+    <section className="relative z-10 px-4 pt-40 pb-32 overflow-hidden" id="testimonial">
       {/* Background image */}
       <div className="testimonials-bg" />
 

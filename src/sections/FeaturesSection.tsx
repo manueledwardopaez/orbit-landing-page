@@ -16,7 +16,7 @@ export default function FeaturesSection() {
   const active = activeIdx !== null ? FEATURES[activeIdx] : null;
 
   return (
-    <section className="relative z-10 bg-[#03040e] px-4 pt-40 pb-32 overflow-hidden">
+    <section className="relative z-10 bg-[#03040e] px-4 pt-40 pb-32 overflow-hidden" id="feature">
 
       {/* Canvas background */}
       <FeatureStarsCanvas />
@@ -52,7 +52,7 @@ export default function FeaturesSection() {
           <ScrollBlur>
             <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
               <ShinyText text="Everything your team" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 needs to ship faster
               </span>
             </h2>
