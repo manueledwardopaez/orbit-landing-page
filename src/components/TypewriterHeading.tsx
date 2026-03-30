@@ -43,7 +43,7 @@ export default function TypewriterHeading() {
   }, [phase, baseCount, varCount, phrase]);
 
   return (
-    <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight mb-8 max-w-4xl leading-[1.1]">
+    <h1 className="min-w-[40] text-4xl md:text-8xl font-display font-bold tracking-tight mb-8 max-w-4xl leading-[1.1] min-h-20">
       <ShinyText text={BASE.slice(0, baseCount)} color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} />
       {baseCount >= BASE.length && <br />}
       <span className="bg-gradient-to-r from-white via-white to-white/40 bg-clip-text text-transparent">

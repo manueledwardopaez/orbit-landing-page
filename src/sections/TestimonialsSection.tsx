@@ -4,7 +4,7 @@ import SectionBadge from "../components/SectionBadge";
 import ScrollBlur from "../components/ScrollBlur";
 import ShinyText from "../../components/ShinyText";
 import LightRays from "../../components/LightRays";
-import DecryptedText from "../../components/DecryptedText";
+
 import { TESTIMONIALS } from "../utils/constants";
 
 export default function TestimonialsSection() {
@@ -47,15 +47,7 @@ export default function TestimonialsSection() {
             </h2>
           </ScrollBlur>
           <p className="text-white/50 text-lg max-w-xl mx-auto h-4">
-            <DecryptedText
-              text="Don't take our word for it — hear from the teams already in orbit."
-              animateOn="view"
-              sequential
-              revealDirection="start"
-              speed={35}
-              className="text-white/50"
-              encryptedClassName="text-white/20"
-            />
+              Don't take our word for it — hear from the teams already in orbit.
           </p>
         </motion.div>
 

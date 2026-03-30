@@ -360,12 +360,20 @@ body {
 .hero-bg {
   background-image:
     linear-gradient(to bottom, rgba(10, 5, 2, 0.1), rgba(10, 5, 2, 0.4)),
-    url('./images/Hero_bg.webp');
+    url('./images/image.png');
   background-size: cover;
   background-position: center;
   position: fixed;
   inset: 0;
   z-index: -2;
+}
+
+@media (min-width: 768px) {
+  .hero-bg {
+    background-image:
+      linear-gradient(to bottom, rgba(10, 5, 2, 0.1), rgba(10, 5, 2, 0.4)),
+      url('./images/Hero_bg.webp');
+  }
 }
 
 .testimonials-bg {

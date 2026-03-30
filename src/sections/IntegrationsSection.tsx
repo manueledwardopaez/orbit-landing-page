@@ -4,7 +4,7 @@ import StarsBackgroundVibrant from "../components/StarsBackgroundVibrant";
 import SectionBadge from "../components/SectionBadge";
 import ScrollBlur from "../components/ScrollBlur";
 import ShinyText from "../../components/ShinyText";
-import DecryptedText from "../../components/DecryptedText";
+
 import LogoLoop from "../../components/LogoLoop";
 import { TOOLS_ROW1, TOOLS_ROW2, type Tool } from "../utils/constants";
 
@@ -78,15 +78,7 @@ export default function IntegrationsSection() {
               </h2>
             </ScrollBlur>
             <p className="text-white/50 text-lg max-w-xl mx-auto">
-              <DecryptedText
-                text="Plug Orbit into your existing stack in minutes. No migration, no disruption."
-                animateOn="view"
-                sequential
-                revealDirection="start"
-                speed={35}
-                className="text-white/50"
-                encryptedClassName="text-white/20"
-              />
+              Plug Orbit into your existing stack in minutes. No migration, no disruption.
             </p>
           </motion.div>
         </div>
