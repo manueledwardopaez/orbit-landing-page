@@ -1,12 +1,15 @@
-import { motion } from "motion/react";
-import { useState, useEffect, useMemo, type ReactNode, type ElementType } from "react";
-import { Sparkles, ChevronRight, Zap, GitBranch, BarChart3, Shield, Bell, Puzzle, Star, Twitter, Github, Linkedin, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "motion/react";
+import { useState, useEffect, useMemo, useRef, type ReactNode, type ElementType } from "react";
+import { ChevronRight, Zap, GitBranch, BarChart3, Shield, Bell, Puzzle, Star, Twitter, Github, Linkedin, ArrowRight } from "lucide-react";
 import {
   SiSlack, SiGithub, SiNotion, SiJira, SiFigma, SiLinear, SiStripe, SiVercel,
   SiZoom, SiHubspot, SiZapier, SiIntercom, SiSalesforce, SiDatadog, SiTwilio,
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
 import Particles from "./Particles";
+import ShinyText from "../components/ShinyText";
+import DecryptedText from "../components/DecryptedText";
+import LogoLoop from "../components/LogoLoop";
 
 const BASE = "Launch Your ";
 const PHRASES = [
@@ -41,23 +44,63 @@ const TOOLS_ROW2: Tool[] = [
   { name: "Twilio",    icon: SiTwilio,            color: "#F22F46", glow: "rgba(242,47,70,0.35)",   bg: "rgba(242,47,70,0.12)"   },
 ];
 
-function renderToolCard(tool: Tool, i: number) {
-  const Icon = tool.icon;
+const toLogoNodes = (tools: Tool[]) =>
+  tools.map(tool => {
+    const Icon = tool.icon;
+    return {
+      node: (
+        <div className="tool-card">
+          <div
+            className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+            style={{ color: tool.color, background: tool.bg, border: `1px solid ${tool.glow}` }}
+          >
+            <Icon size={18} />
+          </div>
+          <span
+            className="text-sm font-semibold whitespace-nowrap tracking-wide"
+            style={{ color: tool.color }}
+          >
+            {tool.name}
+          </span>
+        </div>
+      ),
+    };
+  });
+
+const LOGOS_ROW1 = toLogoNodes(TOOLS_ROW1);
+const LOGOS_ROW2 = toLogoNodes(TOOLS_ROW2);
+
+/* ── Section badge ───────────────────────────────────────────────────────── */
+function SectionBadge({ label }: { label: string }) {
   return (
-    <div key={i} className="tool-card">
-      {/* Icon badge — colored, grayscaled by parent filter, revives on hover */}
-      <div
-        className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-        style={{ color: tool.color, background: tool.bg, border: `1px solid ${tool.glow}` }}
-      >
-        <Icon size={18} />
+    <div style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '8px',
+      background: 'rgba(255,255,255,0.04)',
+      padding: '6px 14px 6px 8px',
+    }}>
+      <div className="badge-dot-outer" style={{
+        width: '18px',
+        height: '18px',
+        borderRadius: '50%',
+        background: '#00c8ff',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+      }}>
+        <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#060d1b' }} />
       </div>
-      {/* Name */}
-      <span
-        className="text-sm font-semibold whitespace-nowrap tracking-wide"
-        style={{ color: tool.color }}
-      >
-        {tool.name}
+      <span style={{
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: '11px',
+        fontWeight: 600,
+        color: 'rgba(255,255,255,0.55)',
+        letterSpacing: '2.5px',
+        textTransform: 'uppercase',
+      }}>
+        {label}
       </span>
     </div>
   );
@@ -78,47 +121,325 @@ function ScrollBlur({ children, className }: { children: ReactNode; className?: 
   );
 }
 
-/* ── Stars background for the features section ───────────────────────────── */
-function StarsBackground() {
-  const stars = useMemo(() =>
-    Array.from({ length: 160 }, (_, i) => {
-      const seed = i * 9301 + 49297;
-      const rng = (n: number) => ((seed * n + 233280) % 1000000) / 1000000;
-      return {
-        x: rng(1) * 100,
-        y: rng(2) * 100,
-        size: rng(3) * 1.8 + 0.4,
-        opacity: rng(4) * 0.6 + 0.2,
-        duration: rng(5) * 4 + 2,
-        delay: rng(6) * 5,
-      };
-    }), []);
+/* ── Canvas star background for features section ───────────────────────── */
+function FeatureStarsCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const particles = Array.from({ length: 120 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 1.6 + 0.3,
+      baseOpacity: Math.random() * 0.55 + 0.2,
+      speed: Math.random() * 0.008 + 0.004,
+      phase: Math.random() * Math.PI * 2,
+    }));
+
+    let animId: number;
+    const animate = (t: number) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        const opacity = p.baseOpacity * (0.5 + 0.5 * Math.sin(t * 0.001 * p.speed * 100 + p.phase));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+        ctx.fill();
+      }
+      animId = requestAnimationFrame(animate);
+    };
+    animId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />;
+}
+
+/* ── Feature data ────────────────────────────────────────────────────────── */
+const FEATURES = [
+  {
+    icon: <Zap className="w-6 h-6 text-cyan-400" />,
+    iconLg: <Zap className="w-10 h-10 text-cyan-400" />,
+    title: "Instant Automation",
+    description: "Eliminate repetitive tasks with smart triggers and flows that run in the background, 24/7.",
+    detail: "Our intelligent automation engine learns your team's patterns and surfaces workflow suggestions before you even need them. From simple task assignments to complex multi-step pipelines — set it once and let Orbit handle the rest around the clock.",
+    stats: [
+      { num: "80%", label: "Time saved on repetitive tasks" },
+      { num: "10x", label: "Faster workflow deployment" },
+      { num: "24/7", label: "Background execution" },
+    ],
+    accent: "#22d3ee",
+  },
+  {
+    icon: <GitBranch className="w-6 h-6 text-blue-400" />,
+    iconLg: <GitBranch className="w-10 h-10 text-blue-400" />,
+    title: "Visual Workflows",
+    description: "Drag-and-drop builder to design multi-step processes without writing a single line of code.",
+    detail: "Build complex multi-step automations through an intuitive drag-and-drop canvas. Connect triggers, conditions, and actions visually. Share and collaborate on workflow templates with your entire team in real time.",
+    stats: [
+      { num: "200+", label: "Pre-built templates" },
+      { num: "0", label: "Lines of code required" },
+      { num: "5 min", label: "Average setup time" },
+    ],
+    accent: "#60a5fa",
+  },
+  {
+    icon: <BarChart3 className="w-6 h-6 text-indigo-400" />,
+    iconLg: <BarChart3 className="w-10 h-10 text-indigo-400" />,
+    title: "Real-time Analytics",
+    description: "Track performance, bottlenecks and team velocity with dashboards that update live.",
+    detail: "Get a live pulse on your team's performance with dashboards that refresh in milliseconds. Drill into bottlenecks, track sprint velocity, and surface actionable insights before they become blockers.",
+    stats: [
+      { num: "<1s", label: "Dashboard refresh rate" },
+      { num: "50+", label: "Built-in metric types" },
+      { num: "3x", label: "Faster incident detection" },
+    ],
+    accent: "#818cf8",
+  },
+  {
+    icon: <Shield className="w-6 h-6 text-cyan-400" />,
+    iconLg: <Shield className="w-10 h-10 text-cyan-400" />,
+    title: "Enterprise Security",
+    description: "SOC 2 compliant with role-based access, SSO, and end-to-end encryption built in.",
+    detail: "Built from the ground up for enterprise requirements. SOC 2 Type II certified, GDPR compliant, with granular role-based access controls, SSO via SAML/OIDC, and AES-256 encryption for all data in transit and at rest.",
+    stats: [
+      { num: "SOC2", label: "Type II certified" },
+      { num: "256-bit", label: "AES encryption" },
+      { num: "99.99%", label: "Uptime SLA" },
+    ],
+    accent: "#22d3ee",
+  },
+  {
+    icon: <Bell className="w-6 h-6 text-blue-400" />,
+    iconLg: <Bell className="w-10 h-10 text-blue-400" />,
+    title: "Smart Notifications",
+    description: "Stay in the loop without noise. Context-aware alerts that surface what actually matters.",
+    detail: "Orbit's notification engine uses context signals to determine exactly when to alert you — and when to stay quiet. No more notification fatigue. The right information at the right moment, delivered wherever your team works.",
+    stats: [
+      { num: "73%", label: "Reduction in alert noise" },
+      { num: "12+", label: "Delivery channels" },
+      { num: "AI", label: "Context-aware filtering" },
+    ],
+    accent: "#60a5fa",
+  },
+  {
+    icon: <Puzzle className="w-6 h-6 text-indigo-400" />,
+    iconLg: <Puzzle className="w-10 h-10 text-indigo-400" />,
+    title: "100+ Integrations",
+    description: "Connect with the tools your team already uses — Slack, GitHub, Notion, Jira and more.",
+    detail: "Plug Orbit into your existing stack in minutes. Native two-way integrations with Slack, GitHub, Notion, Jira, Figma, and 100+ more tools keep everything in context without ever leaving your workflow.",
+    stats: [
+      { num: "100+", label: "Native integrations" },
+      { num: "2-way", label: "Bidirectional sync" },
+      { num: "<5 min", label: "Integration setup" },
+    ],
+    accent: "#818cf8",
+  },
+];
+
+/* ── Interactive features grid + detail panel ───────────────────────────── */
+function FeaturesSection() {
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  const toggle = (i: number) => setActiveIdx(prev => prev === i ? null : i);
+
+  const active = activeIdx !== null ? FEATURES[activeIdx] : null;
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Nebula glows */}
-      <div className="absolute top-[10%] left-[15%] w-[500px] h-[300px] rounded-full bg-indigo-900/20 blur-[100px]" />
-      <div className="absolute top-[40%] right-[10%] w-[400px] h-[250px] rounded-full bg-blue-900/15 blur-[90px]" />
-      <div className="absolute bottom-[15%] left-[30%] w-[350px] h-[200px] rounded-full bg-violet-900/15 blur-[80px]" />
-      <div className="absolute top-[60%] left-[5%] w-[250px] h-[150px] rounded-full bg-cyan-900/10 blur-[70px]" />
+    <section className="relative z-10 bg-[#03040e] px-4 pt-40 pb-32 overflow-hidden">
 
-      {/* Stars */}
-      {stars.map((s, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${s.x}%`,
-            top: `${s.y}%`,
-            width: `${s.size}px`,
-            height: `${s.size}px`,
-            ["--star-opacity" as string]: s.opacity,
-            opacity: s.opacity,
-            animation: `twinkle ${s.duration}s ease-in-out ${s.delay}s infinite`,
-          }}
+      {/* Canvas background */}
+      <FeatureStarsCanvas />
+
+      {/* Nebula glows */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[10%] left-[15%] w-[500px] h-[300px] rounded-full bg-indigo-900/20 blur-[100px]" />
+        <div className="absolute top-[40%] right-[10%] w-[400px] h-[250px] rounded-full bg-blue-900/15 blur-[90px]" />
+        <div className="absolute bottom-[15%] left-[30%] w-[350px] h-[200px] rounded-full bg-violet-900/15 blur-[80px]" />
+        <div className="absolute top-[60%] left-[5%] w-[250px] h-[150px] rounded-full bg-cyan-900/10 blur-[70px]" />
+      </div>
+
+      {/* Floating astronaut */}
+      <div className="absolute right-[4%] top-[12%] z-10 pointer-events-none select-none">
+        <img
+          src="/src/png-clipart-astronaut-astronaut-thumbnail.png"
+          alt="Floating astronaut"
+          className="astronaut-float w-36 md:w-52 lg:w-64 opacity-90"
         />
-      ))}
-    </div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
+
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-20"
+        >
+          <div className="mb-6"><SectionBadge label="Features" /></div>
+          <ScrollBlur>
+            <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
+              <ShinyText text="Everything your team" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                needs to ship faster
+              </span>
+            </h2>
+          </ScrollBlur>
+          <p className="text-white/50 text-lg max-w-xl mx-auto">
+            <DecryptedText
+              text="One platform to plan, execute and track — built for teams that move at the speed of orbit."
+              animateOn="view"
+              sequential
+              revealDirection="start"
+              speed={35}
+              className="text-white/50"
+              encryptedClassName="text-white/20"
+            />
+          </p>
+        </motion.div>
+
+        {/* Feature grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {FEATURES.map((feature, i) => {
+            const isActive = activeIdx === i;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                onClick={() => toggle(i)}
+                whileHover={{ y: -6 }}
+                className="group relative rounded-2xl p-7 flex flex-col gap-4 cursor-pointer overflow-hidden"
+                style={{
+                  background: isActive
+                    ? 'rgba(34,211,238,0.05)'
+                    : 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${isActive ? 'rgba(34,211,238,0.35)' : 'rgba(255,255,255,0.07)'}`,
+                  transition: 'border-color 0.25s, background 0.25s',
+                }}
+              >
+                {/* Hover glow from top */}
+                <div
+                  className="absolute inset-x-0 top-0 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  style={{
+                    background: `radial-gradient(ellipse at 50% 0%, ${feature.accent}22 0%, transparent 70%)`,
+                  }}
+                />
+
+                {/* Active border glow */}
+                {isActive && (
+                  <div
+                    className="absolute inset-0 rounded-2xl pointer-events-none"
+                    style={{ boxShadow: `0 0 24px 0 ${feature.accent}22` }}
+                  />
+                )}
+
+                {/* Pulsing dot — top-right when active */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.span
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-4 right-4 w-2 h-2 rounded-full animate-pulse"
+                      style={{ background: feature.accent }}
+                    />
+                  )}
+                </AnimatePresence>
+
+                {/* Icon */}
+                <div
+                  className="feature-icon w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center transition-colors duration-300"
+                  style={isActive ? { background: `${feature.accent}18` } : {}}
+                >
+                  {feature.icon}
+                </div>
+
+                <h3 className="font-display font-semibold text-lg text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-white/50 text-sm leading-relaxed">
+                  {feature.description}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Detail panel */}
+        <AnimatePresence mode="wait">
+          {active && (
+            <motion.div
+              key={activeIdx}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-5 rounded-2xl p-8 md:p-10"
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                border: `1px solid ${active.accent}33`,
+                boxShadow: `0 0 40px 0 ${active.accent}12`,
+              }}
+            >
+              <div className="flex flex-col md:flex-row gap-8">
+                {/* Left: icon + title + description */}
+                <div className="flex-1 flex flex-col gap-4">
+                  <div
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                    style={{ background: `${active.accent}18`, border: `1px solid ${active.accent}33` }}
+                  >
+                    {active.iconLg}
+                  </div>
+                  <h3 className="text-2xl font-display font-bold text-white">{active.title}</h3>
+                  <p className="text-white/60 leading-relaxed">{active.detail}</p>
+                </div>
+
+                {/* Right: stat cards */}
+                <div className="flex flex-col sm:flex-row md:flex-col gap-3 md:w-64">
+                  {active.stats.map((stat, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: 16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: i * 0.07 }}
+                      className="flex-1 rounded-xl p-4 flex flex-col gap-1"
+                      style={{ background: `${active.accent}0d`, border: `1px solid ${active.accent}22` }}
+                    >
+                      <span className="text-2xl font-display font-bold" style={{ color: active.accent }}>
+                        {stat.num}
+                      </span>
+                      <span className="text-xs text-white/50">{stat.label}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+      </div>
+    </section>
   );
 }
 
@@ -213,8 +534,8 @@ function TypewriterHeading() {
   }, [phase, baseCount, varCount, phrase]);
 
   return (
-    <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight mb-8 max-w-4xl leading-[1.1] text-glow">
-      {BASE.slice(0, baseCount)}
+    <h1 className="text-5xl md:text-8xl font-display font-bold tracking-tight mb-8 max-w-4xl leading-[1.1]">
+      <ShinyText text={BASE.slice(0, baseCount)} color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} />
       {baseCount >= BASE.length && <br />}
       <span className="bg-gradient-to-r from-white via-white to-white/40 bg-clip-text text-transparent">
         {phrase.slice(0, varCount)}
@@ -265,12 +586,9 @@ export default function App() {
             initial={{ opacity: 0, y: 12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="glass px-4 py-1.5 rounded-full flex items-center gap-2 mb-8"
+            className="mb-8"
           >
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            <span className="text-xs font-medium tracking-wide text-white/80 uppercase">
-              Trusted by space team.
-            </span>
+            <SectionBadge label="Trusted by space team." />
           </motion.div>
 
           {/* Main Heading — typewriter */}
@@ -313,105 +631,7 @@ export default function App() {
       {/* Hero bottom fade */}
       <div className="hero-bottom-fade" />
 
-      {/* Features Section */}
-      <section className="relative z-10 bg-[#03040e] px-4 pt-40 pb-32 overflow-hidden">
-
-        {/* Space background: stars + nebula */}
-        <StarsBackground />
-
-        {/* Floating astronaut */}
-        <div className="absolute right-[4%] top-[12%] z-10 pointer-events-none select-none">
-          <img
-            src="/src/png-clipart-astronaut-astronaut-thumbnail.png"
-            alt="Floating astronaut"
-            className="astronaut-float w-36 md:w-52 lg:w-64 opacity-90"
-          />
-        </div>
-
-        <div className="relative z-10 max-w-6xl mx-auto">
-
-          {/* Section header */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-20"
-          >
-            <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full mb-6">
-              <Zap className="w-4 h-4 text-cyan-400" />
-              <span className="text-xs font-medium tracking-wide text-white/70 uppercase">Features</span>
-            </div>
-            <ScrollBlur>
-              <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4 text-glow">
-                Everything your team<br />
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                  needs to ship faster
-                </span>
-              </h2>
-            </ScrollBlur>
-            <p className="text-white/50 text-lg max-w-xl mx-auto">
-              One platform to plan, execute and track — built for teams that move at the speed of orbit.
-            </p>
-          </motion.div>
-
-          {/* Feature grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              {
-                icon: <Zap className="w-6 h-6 text-cyan-400" />,
-                title: "Instant Automation",
-                description: "Eliminate repetitive tasks with smart triggers and flows that run in the background, 24/7.",
-              },
-              {
-                icon: <GitBranch className="w-6 h-6 text-blue-400" />,
-                title: "Visual Workflows",
-                description: "Drag-and-drop builder to design multi-step processes without writing a single line of code.",
-              },
-              {
-                icon: <BarChart3 className="w-6 h-6 text-indigo-400" />,
-                title: "Real-time Analytics",
-                description: "Track performance, bottlenecks and team velocity with dashboards that update live.",
-              },
-              {
-                icon: <Shield className="w-6 h-6 text-cyan-400" />,
-                title: "Enterprise Security",
-                description: "SOC 2 compliant with role-based access, SSO, and end-to-end encryption built in.",
-              },
-              {
-                icon: <Bell className="w-6 h-6 text-blue-400" />,
-                title: "Smart Notifications",
-                description: "Stay in the loop without noise. Context-aware alerts that surface what actually matters.",
-              },
-              {
-                icon: <Puzzle className="w-6 h-6 text-indigo-400" />,
-                title: "100+ Integrations",
-                description: "Connect with the tools your team already uses — Slack, GitHub, Notion, Jira and more.",
-              },
-            ].map((feature, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -6, scale: 1.02 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="feature-card rounded-2xl p-7 flex flex-col gap-4 cursor-default"
-              >
-                <div className="feature-icon w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center">
-                  {feature.icon}
-                </div>
-                <h3 className="font-display font-semibold text-lg text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-white/50 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <FeaturesSection />
 
       {/* Integrations Section */}
       <section className="relative z-10 bg-[#03040e] pt-32 pb-32 overflow-hidden">
@@ -425,7 +645,7 @@ export default function App() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-0 top-20 pointer-events-none select-none z-20"
+          className="absolute left-0 top-20 pointer-events-none select-none z-0 md:z-20"
         >
           <img
             src="/src/astronaut_with_ipad.png"
@@ -446,20 +666,25 @@ export default function App() {
               transition={{ duration: 0.7 }}
               className="text-center"
             >
-              <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full mb-6">
-                <Puzzle className="w-4 h-4 text-indigo-400" />
-                <span className="text-xs font-medium tracking-wide text-white/70 uppercase">Integrations</span>
-              </div>
+              <div className="mb-6"><SectionBadge label="Integrations" /></div>
               <ScrollBlur>
                 <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
-                  Works with your<br />
+                  <ShinyText text="Works with your" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
                   <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
                     favorite tools
                   </span>
                 </h2>
               </ScrollBlur>
               <p className="text-white/50 text-lg max-w-xl mx-auto">
-                Plug Orbit into your existing stack in minutes. No migration, no disruption.
+                <DecryptedText
+                  text="Plug Orbit into your existing stack in minutes. No migration, no disruption."
+                  animateOn="view"
+                  sequential
+                  revealDirection="start"
+                  speed={35}
+                  className="text-white/50"
+                  encryptedClassName="text-white/20"
+                />
               </p>
             </motion.div>
           </div>
@@ -470,33 +695,28 @@ export default function App() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-5xl mx-auto"
+          className="space-y-3"
         >
-          {/* Edge-fade wrapper for both rows */}
-          <div className="marquee-fade-wrapper space-y-3">
-            {/* Row 1 — scrolls left */}
-            <div className="marquee-track">
-              <div className="marquee-left">
-                <div className="marquee-half">
-                  {TOOLS_ROW1.map((t, i) => renderToolCard(t, i))}
-                </div>
-                <div className="marquee-half">
-                  {TOOLS_ROW1.map((t, i) => renderToolCard(t, i))}
-                </div>
-              </div>
-            </div>
-            {/* Row 2 — scrolls right */}
-            <div className="marquee-track">
-              <div className="marquee-right">
-                <div className="marquee-half">
-                  {TOOLS_ROW2.map((t, i) => renderToolCard(t, i))}
-                </div>
-                <div className="marquee-half">
-                  {TOOLS_ROW2.map((t, i) => renderToolCard(t, i))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <LogoLoop
+            logos={LOGOS_ROW1}
+            direction="left"
+            speed={80}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+          <LogoLoop
+            logos={LOGOS_ROW2}
+            direction="right"
+            speed={70}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
         </motion.div>
 
         {/* CTA strip */}
@@ -531,13 +751,10 @@ export default function App() {
             transition={{ duration: 0.7 }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full mb-6">
-              <Star className="w-4 h-4 text-cyan-400 fill-cyan-400"/>
-              <span className="text-xs font-medium tracking-wide text-white/70 uppercase">Testimonials</span>
-            </div>
+            <div className="mb-6"><SectionBadge label="Testimonials" /></div>
             <ScrollBlur>
               <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
-                Loved by teams<br />
+                <ShinyText text="Loved by teams" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
                 <span className="bg-gradient-to-r from-indigo-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
                   across the galaxy
                 </span>
@@ -682,7 +899,7 @@ export default function App() {
           {/* Bottom bar */}
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs text-white/25">© {new Date().getFullYear()} Orbit Workflow, Inc. All rights reserved.</p>
-            <p className="text-xs text-white/25">Made with care for teams that dare to move faster.</p>
+            <p className="text-xs text-white/25">Made with care for teams that dare to move a the speed of light.</p>
           </div>
         </div>
       </footer>
