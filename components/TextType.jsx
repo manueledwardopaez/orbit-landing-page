@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
 import { gsap } from 'gsap';
 import './TextType.css';
+import ShinyText from './ShinyText';
 
 const TextType = ({
   text,
@@ -24,6 +25,8 @@ const TextType = ({
   startOnVisible = false,
   reverseMode = false,
   lastWordClassName = '',
+  shinyLastWord = false,
+  shinyLastWordProps = {},
   ...props
 }) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -152,7 +155,7 @@ const TextType = ({
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
   const renderTextContent = () => {
-    if (!lastWordClassName || !displayedText) return displayedText;
+    if ((!lastWordClassName && !shinyLastWord) || !displayedText) return displayedText;
     
     const currentFullText = textArray[currentTextIndex];
     if (!currentFullText) return displayedText;
@@ -167,7 +170,13 @@ const TextType = ({
       return (
         <>
           {prefix}
-          {lastWord ? <span className={lastWordClassName}>{lastWord}</span> : null}
+          {lastWord ? (
+            shinyLastWord ? (
+               <ShinyText text={lastWord} className={lastWordClassName} {...shinyLastWordProps} />
+            ) : (
+               <span className={lastWordClassName}>{lastWord}</span>
+            )
+          ) : null}
         </>
       );
     }
