@@ -65,7 +65,7 @@ const LightRays = ({
         const entry = entries[0];
         setIsVisible(entry.isIntersecting);
       },
-      { threshold: 0.1 }
+      { rootMargin: '200px', threshold: 0 }
     );
 
     observerRef.current.observe(containerRef.current);
@@ -102,6 +102,8 @@ const LightRays = ({
       const gl = renderer.gl;
       gl.canvas.style.width = '100%';
       gl.canvas.style.height = '100%';
+      gl.canvas.style.opacity = '0';
+      gl.canvas.style.transition = 'opacity 1.5s ease-in-out';
 
       while (containerRef.current.firstChild) {
         containerRef.current.removeChild(containerRef.current.firstChild);
@@ -277,6 +279,9 @@ void main() {
 
         try {
           renderer.render({ scene: mesh });
+          if (gl.canvas.style.opacity === '0') {
+            gl.canvas.style.opacity = '1';
+          }
           animationIdRef.current = requestAnimationFrame(loop);
         } catch (error) {
           console.warn('WebGL rendering error:', error);
