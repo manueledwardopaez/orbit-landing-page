@@ -66,7 +66,7 @@ export default function TestimonialsSection() {
                 {/* Stars */}
                 <div className="flex gap-1">
                   {Array.from({ length: t.stars }).map((_, s) => (
-                    <Star key={s} className="w-4 h-4 text-white/30 fill-white/30 group-hover:text-cyan-400 group-hover:fill-cyan-400 transition-colors duration-300" />
+                    <Star key={s} className="w-4 h-4 text-cyan-400 fill-cyan-400 md:text-white/30 md:fill-white/30 group-hover:text-cyan-400 group-hover:fill-cyan-400 transition-colors duration-300" />
                   ))}
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed flex-1">"{t.quote}"</p>

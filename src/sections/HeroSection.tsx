@@ -6,7 +6,7 @@ import TypewriterHeading from "../components/TypewriterHeading";
 
 export default function HeroSection() {
   return (
-    <main className="relative h-screen flex flex-col items-center justify-center px-4 text-center overflow-hidden">
+    <main className="relative min-h-[100svh] md:min-h-screen flex flex-col items-center justify-center px-4 text-center overflow-hidden">
       <Particles />
 
       <div className="relative z-10 flex flex-col items-center">

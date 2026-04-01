@@ -50,8 +50,11 @@ export default function Particles() {
     const shoots: Shoot[] = [];
 
     const resize = () => {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const { clientWidth, clientHeight } = canvas;
+      if (canvas.width !== clientWidth || canvas.height !== clientHeight) {
+        canvas.width = clientWidth;
+        canvas.height = clientHeight;
+      }
     };
     resize();
     window.addEventListener("resize", resize);

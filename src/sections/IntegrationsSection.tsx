@@ -212,26 +212,43 @@ export default function IntegrationsSection() {
         transition={{ duration: 0.8 }}
         className="space-y-3 pb-4"
       >
-        <LogoLoop
-          logos={LOGOS_ROW1}
-          direction="left"
-          speed={80}
-          pauseOnHover
-          fadeOut
-          fadeOutColor="#03040e"
-          logoHeight={56}
-          gap={8}
-        />
-        <LogoLoop
-          logos={LOGOS_ROW2}
-          direction="right"
-          speed={70}
-          pauseOnHover
-          fadeOut
-          fadeOutColor="#03040e"
-          logoHeight={56}
-          gap={8}
-        />
+        {/* Mobile: 1 Row with all logos */}
+        <div className="block md:hidden">
+          <LogoLoop
+            logos={[...LOGOS_ROW1, ...LOGOS_ROW2]}
+            direction="left"
+            speed={80}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+        </div>
+
+        {/* Desktop: 2 Rows */}
+        <div className="hidden md:block space-y-3">
+          <LogoLoop
+            logos={LOGOS_ROW1}
+            direction="left"
+            speed={80}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+          <LogoLoop
+            logos={LOGOS_ROW2}
+            direction="right"
+            speed={70}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+        </div>
       </motion.div>
 
       {/* CTA strip — dropdown */}

@@ -292,8 +292,14 @@ body {
 
 /* ── Testimonial avatar: grayscale by default, color on card hover ───────── */
 .testimonial-avatar {
-  filter: grayscale(1) brightness(0.8);
+  filter: grayscale(0) brightness(1);
   transition: filter 0.4s ease;
+}
+
+@media (min-width: 768px) {
+  .testimonial-avatar {
+    filter: grayscale(1) brightness(0.8);
+  }
 }
 
 .feature-card:hover .testimonial-avatar,
@@ -353,7 +359,11 @@ body {
     radial-gradient(circle at 50% 45%, rgba(0, 100, 255, 0.1) 0%, transparent 60%);
   filter: blur(100px);
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100lvh;
   z-index: -1;
 }
 
@@ -364,7 +374,11 @@ body {
   background-size: cover;
   background-position: center;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  height: 100lvh;
   z-index: -2;
 }
 
