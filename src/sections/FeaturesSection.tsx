@@ -83,7 +83,7 @@ export default function FeaturesSection() {
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 onClick={() => toggle(i)}
                 whileHover={{ y: -6 }}
-                className="group relative rounded-2xl p-7 flex flex-col gap-4 cursor-pointer overflow-hidden"
+                className={`group relative rounded-2xl p-7 flex flex-col gap-4 cursor-pointer overflow-hidden${i >= 4 ? ' hidden md:flex' : ''}`}
                 style={{
                   background: isActive
                     ? 'rgba(34,211,238,0.05)'
@@ -142,53 +142,61 @@ export default function FeaturesSection() {
         </div>
 
         {/* Detail panel */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {active && (
             <motion.div
               key={activeIdx}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 16 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-5 rounded-2xl p-8 md:p-10"
-              style={{
-                background: 'rgba(255,255,255,0.03)',
-                border: `1px solid ${active.accent}33`,
-                boxShadow: `0 0 40px 0 ${active.accent}12`,
-              }}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              style={{ overflow: 'hidden' }}
             >
-              <div className="flex flex-col md:flex-row gap-8">
-                {/* Left: icon + title + description */}
-                <div className="flex-1 flex flex-col gap-4">
-                  <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center"
-                    style={{ background: `${active.accent}18`, border: `1px solid ${active.accent}33` }}
-                  >
-                    {active.iconLg}
-                  </div>
-                  <h3 className="text-2xl font-display font-bold text-white">{active.title}</h3>
-                  <p className="text-white/60 leading-relaxed">{active.detail}</p>
-                </div>
-
-                {/* Right: stat cards */}
-                <div className="flex flex-col sm:flex-row md:flex-col gap-3 md:w-64">
-                  {active.stats.map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: 16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.35, delay: i * 0.07 }}
-                      className="flex-1 rounded-xl p-4 flex flex-col gap-1"
-                      style={{ background: `${active.accent}0d`, border: `1px solid ${active.accent}22` }}
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.38, delay: 0.07, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-5 rounded-2xl p-8 md:p-10"
+                style={{
+                  background: 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${active.accent}33`,
+                  boxShadow: `0 0 40px 0 ${active.accent}12`,
+                }}
+              >
+                <div className="flex flex-col md:flex-row gap-8">
+                  {/* Left: icon + title + description */}
+                  <div className="flex-1 flex flex-col gap-4">
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                      style={{ background: `${active.accent}18`, border: `1px solid ${active.accent}33` }}
                     >
-                      <span className="text-2xl font-display font-bold" style={{ color: active.accent }}>
-                        {stat.num}
-                      </span>
-                      <span className="text-xs text-white/50">{stat.label}</span>
-                    </motion.div>
-                  ))}
+                      {active.iconLg}
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-white">{active.title}</h3>
+                    <p className="text-white/60 leading-relaxed">{active.detail}</p>
+                  </div>
+
+                  {/* Right: stat cards */}
+                  <div className="flex flex-col sm:flex-row md:flex-col gap-3 md:w-64">
+                    {active.stats.map((stat, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: 16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.35, delay: 0.12 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                        className="flex-1 rounded-xl p-4 flex flex-col gap-1"
+                        style={{ background: `${active.accent}0d`, border: `1px solid ${active.accent}22` }}
+                      >
+                        <span className="text-2xl font-display font-bold" style={{ color: active.accent }}>
+                          {stat.num}
+                        </span>
+                        <span className="text-xs text-white/50">{stat.label}</span>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

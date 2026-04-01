@@ -59,7 +59,7 @@ export default function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="feature-card rounded-2xl p-7 flex flex-col gap-5 group"
+              className={`feature-card rounded-2xl p-7 flex flex-col gap-5 group${i >= 3 ? ' hidden md:flex' : ''}`}
             >
               {/* Stars */}
               <div className="flex gap-1">
