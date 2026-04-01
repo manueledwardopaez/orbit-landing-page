@@ -46,13 +46,13 @@ export default function HeroSection() {
           transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.58 }}
           className="flex flex-col sm:flex-row items-center gap-4"
         >
-          <button className="btn-glow glass px-8 py-4 rounded-full font-semibold flex items-center gap-2 group cursor-pointer">
+          <a href="#feature" className="btn-glow glass px-8 py-4 rounded-full font-semibold flex items-center gap-2 group cursor-pointer">
             Get Started For Free
             <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className="px-8 py-4 rounded-full font-semibold text-white/80 hover:text-white hover:drop-shadow-[0_0_8px_rgba(99,210,255,0.8)] transition-all duration-200 cursor-pointer">
+          </a>
+          <a href="#feature" className="px-8 py-4 rounded-full font-semibold text-white/80 hover:text-white hover:drop-shadow-[0_0_8px_rgba(99,210,255,0.8)] transition-all duration-200 cursor-pointer">
             Explore
-          </button>
+          </a>
         </motion.div>
       </div>
     </main>

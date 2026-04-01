@@ -19,6 +19,7 @@ export default function TypewriterHeading() {
           showCursor={true}
           variableSpeed={undefined}
           onSentenceComplete={undefined}
+          lastWordClassName="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
         />
       </h1>
     </>

@@ -296,7 +296,8 @@ body {
   transition: filter 0.4s ease;
 }
 
-.feature-card:hover .testimonial-avatar {
+.feature-card:hover .testimonial-avatar,
+.card-spotlight:hover .testimonial-avatar {
   filter: grayscale(0) brightness(1);
 }
 

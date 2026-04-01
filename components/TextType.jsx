@@ -23,6 +23,7 @@ const TextType = ({
   onSentenceComplete,
   startOnVisible = false,
   reverseMode = false,
+  lastWordClassName = '',
   ...props
 }) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -150,6 +151,30 @@ const TextType = ({
   const shouldHideCursor =
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
+  const renderTextContent = () => {
+    if (!lastWordClassName || !displayedText) return displayedText;
+    
+    const currentFullText = textArray[currentTextIndex];
+    if (!currentFullText) return displayedText;
+
+    const fullTextWords = currentFullText.split(' ');
+    const displayedWords = displayedText.split(' ');
+    
+    if (displayedWords.length === fullTextWords.length) {
+      const lastWord = displayedWords.pop();
+      const prefix = displayedWords.join(' ') + (displayedWords.length > 0 ? ' ' : '');
+      
+      return (
+        <>
+          {prefix}
+          {lastWord ? <span className={lastWordClassName}>{lastWord}</span> : null}
+        </>
+      );
+    }
+    
+    return displayedText;
+  };
+
   return createElement(
     Component,
     {
@@ -158,7 +183,7 @@ const TextType = ({
       ...props
     },
     <span className="text-type__content" style={{ color: getCurrentTextColor() || 'inherit' }}>
-      {displayedText}
+      {renderTextContent()}
     </span>,
     showCursor && (
       <span

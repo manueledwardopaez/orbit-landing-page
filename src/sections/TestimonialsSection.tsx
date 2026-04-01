@@ -4,6 +4,7 @@ import SectionBadge from "../components/SectionBadge";
 import ScrollBlur from "../components/ScrollBlur";
 import ShinyText from "../../components/ShinyText";
 import LightRays from "../../components/LightRays";
+import SpotlightCard from "../../components/SpotlightCard";
 
 import { TESTIMONIALS } from "../utils/constants";
 
@@ -59,26 +60,28 @@ export default function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className={`feature-card rounded-2xl p-7 flex flex-col gap-5 group${i >= 3 ? ' hidden md:flex' : ''}`}
+              className={i >= 3 ? 'hidden md:block h-full' : 'h-full'}
             >
-              {/* Stars */}
-              <div className="flex gap-1">
-                {Array.from({ length: t.stars }).map((_, s) => (
-                  <Star key={s} className="w-4 h-4 text-white/30 fill-white/30 group-hover:text-cyan-400 group-hover:fill-cyan-400 transition-colors duration-300" />
-                ))}
-              </div>
-              <p className="text-white/70 text-sm leading-relaxed flex-1">"{t.quote}"</p>
-              <div className="flex items-center gap-3 pt-2 border-t border-white/5">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="testimonial-avatar w-9 h-9 rounded-full object-cover shrink-0"
-                />
-                <div>
-                  <p className="text-sm font-semibold text-white">{t.name}</p>
-                  <p className="text-xs text-white/40">{t.role}</p>
+              <SpotlightCard className="h-full flex flex-col gap-5 group" spotlightColor="rgba(0, 200, 255, 0.12)">
+                {/* Stars */}
+                <div className="flex gap-1">
+                  {Array.from({ length: t.stars }).map((_, s) => (
+                    <Star key={s} className="w-4 h-4 text-white/30 fill-white/30 group-hover:text-cyan-400 group-hover:fill-cyan-400 transition-colors duration-300" />
+                  ))}
                 </div>
-              </div>
+                <p className="text-white/70 text-sm leading-relaxed flex-1">"{t.quote}"</p>
+                <div className="flex items-center gap-3 pt-2 border-t border-white/5">
+                  <img
+                    src={t.avatar}
+                    alt={t.name}
+                    className="testimonial-avatar w-9 h-9 rounded-full object-cover shrink-0"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold text-white">{t.name}</p>
+                    <p className="text-xs text-white/40">{t.role}</p>
+                  </div>
+                </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>
