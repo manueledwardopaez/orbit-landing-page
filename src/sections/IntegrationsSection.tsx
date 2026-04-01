@@ -71,7 +71,7 @@ export default function IntegrationsSection() {
             <div className="mb-6"><SectionBadge label="Integrations" /></div>
             <ScrollBlur>
               <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
-                <ShinyText text="Works with your" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
+                <ShinyText text="Works with your" color="rgba(180,190,200,0.85)" shineColor="#ffffff" spread={90} speed={2} /><br />
                 <span className="bg-linear-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
                   favorite tools
                 </span>

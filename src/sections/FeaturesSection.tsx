@@ -51,7 +51,7 @@ export default function FeaturesSection() {
           <div className="mb-6"><SectionBadge label="Features" /></div>
           <ScrollBlur>
             <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
-              <ShinyText text="Everything your team" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
+              <ShinyText text="Everything your team" color="rgba(180,190,200,0.85)" shineColor="#ffffff" spread={90} speed={2} /><br />
               <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 needs to ship faster
               </span>
@@ -63,7 +63,7 @@ export default function FeaturesSection() {
               animateOn="view"
               sequential
               revealDirection="start"
-              speed={35}
+              speed={10}
               className="text-white/50"
               encryptedClassName="text-white/20"
             />

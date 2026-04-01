@@ -57,7 +57,7 @@ export default function Footer() {
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/25">© {new Date().getFullYear()} Orbit Workflow, Inc. All rights reserved.</p>
           <div> 
-            <sapn className="text-xs text-white/25">Made with 💙 by <a href="#" className="text-white/35 underline" >Manuel Paez</a>. For teams that dare to move a the speed of light 🗲</sapn>
+            <span className="text-xs text-white/25">Made with 💙 by <a href="#" className="text-white/35 underline" >Manuel Paez</a>. For teams that dare to move a the speed of light 🗲</span>
           </div>
         </div>
       </div>

@@ -40,8 +40,8 @@ export default function TestimonialsSection() {
           <div className="mb-6"><SectionBadge label="Testimonials" /></div>
           <ScrollBlur>
             <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-4">
-              <ShinyText text="Loved by teams" color="rgba(255,255,255,0.85)" shineColor="#ffffff" spread={90} speed={2.5} /><br />
-              <span className="bg-linear-to from-indigo-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              <ShinyText text="Loved by teams" color="rgba(180,190,200,0.85)" shineColor="#ffffff" spread={90} speed={2} /><br />
+              <span className="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 across the galaxy
               </span>
             </h2>
