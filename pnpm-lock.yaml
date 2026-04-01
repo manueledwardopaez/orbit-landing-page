@@ -18,7 +18,7 @@ importers:
         specifier: ^5.0.4
         version: 5.2.0(vite@6.4.1(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
       gsap:
-        specifier: ^3.14.2
+        specifier: ^3.13.0
         version: 3.14.2
       lucide-react:
         specifier: ^0.546.0
