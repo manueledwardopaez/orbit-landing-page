@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
 import { gsap } from 'gsap';
 import './TextType.css';
+import ShinyText from './ShinyText';
 
 const TextType = ({
   text,
@@ -23,6 +24,9 @@ const TextType = ({
   onSentenceComplete,
   startOnVisible = false,
   reverseMode = false,
+  lastWordClassName = '',
+  shinyLastWord = false,
+  shinyLastWordProps = {},
   ...props
 }) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -150,6 +154,36 @@ const TextType = ({
   const shouldHideCursor =
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
+  const renderTextContent = () => {
+    if ((!lastWordClassName && !shinyLastWord) || !displayedText) return displayedText;
+    
+    const currentFullText = textArray[currentTextIndex];
+    if (!currentFullText) return displayedText;
+
+    const fullTextWords = currentFullText.split(' ');
+    const displayedWords = displayedText.split(' ');
+    
+    if (displayedWords.length === fullTextWords.length) {
+      const lastWord = displayedWords.pop();
+      const prefix = displayedWords.join(' ') + (displayedWords.length > 0 ? ' ' : '');
+      
+      return (
+        <>
+          {prefix}
+          {lastWord ? (
+            shinyLastWord ? (
+               <ShinyText text={lastWord} className={lastWordClassName} {...shinyLastWordProps} />
+            ) : (
+               <span className={lastWordClassName}>{lastWord}</span>
+            )
+          ) : null}
+        </>
+      );
+    }
+    
+    return displayedText;
+  };
+
   return createElement(
     Component,
     {
@@ -158,7 +192,7 @@ const TextType = ({
       ...props
     },
     <span className="text-type__content" style={{ color: getCurrentTextColor() || 'inherit' }}>
-      {displayedText}
+      {renderTextContent()}
     </span>,
     showCursor && (
       <span

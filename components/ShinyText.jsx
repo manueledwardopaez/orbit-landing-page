@@ -13,7 +13,9 @@ const ShinyText = ({
   yoyo = false,
   pauseOnHover = false,
   direction = 'left',
-  delay = 0
+  delay = 0,
+  gradient = '',
+  bgSize = '200% auto'
 }) => {
   const [isPaused, setIsPaused] = useState(false);
   const progress = useMotionValue(0);
@@ -84,7 +86,13 @@ const ShinyText = ({
   }, [direction]);
 
   // Transform: p=0 -> 150% (shine off right), p=100 -> -50% (shine off left)
-  const backgroundPosition = useTransform(progress, p => `${150 - p * 2}% center`);
+  const backgroundPosition = useTransform(progress, p => {
+    const mainPos = `${150 - p * 2}% center`;
+    if (bgSize && bgSize.includes(',')) {
+      return bgSize.split(',').map((_, i) => i === 0 ? mainPos : '0 0').join(', ');
+    }
+    return mainPos;
+  });
 
   const handleMouseEnter = useCallback(() => {
     if (pauseOnHover) setIsPaused(true);
@@ -95,8 +103,8 @@ const ShinyText = ({
   }, [pauseOnHover]);
 
   const gradientStyle = {
-    backgroundImage: `linear-gradient(${spread}deg, ${color} 0%, ${color} 35%, ${shineColor} 50%, ${color} 65%, ${color} 100%)`,
-    backgroundSize: '200% auto',
+    backgroundImage: gradient || `linear-gradient(${spread}deg, ${color} 0%, ${color} 35%, ${shineColor} 50%, ${color} 65%, ${color} 100%)`,
+    backgroundSize: bgSize,
     WebkitBackgroundClip: 'text',
     backgroundClip: 'text',
     WebkitTextFillColor: 'transparent'

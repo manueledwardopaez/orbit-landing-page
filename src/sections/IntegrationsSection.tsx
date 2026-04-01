@@ -1,5 +1,7 @@
-import { motion } from "motion/react";
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowRight, ChevronDown, Mail, MessageCircle } from "lucide-react";
+import { SiGithub } from "react-icons/si";
 import StarsBackgroundVibrant from "../components/StarsBackgroundVibrant";
 import SectionBadge from "../components/SectionBadge";
 import ScrollBlur from "../components/ScrollBlur";
@@ -33,6 +35,125 @@ const toLogoNodes = (tools: Tool[]) =>
 
 const LOGOS_ROW1 = toLogoNodes(TOOLS_ROW1);
 const LOGOS_ROW2 = toLogoNodes(TOOLS_ROW2);
+
+const CHANNELS = [
+  {
+    icon: <SiGithub size={20} color="#e6edf3" />,
+    label: 'Open a GitHub issue',
+    description: 'Browse existing requests or open a new one in our public repo.',
+    href: '#integration',
+    color: 'rgba(230,237,243,0.06)',
+    border: 'rgba(230,237,243,0.1)',
+    colorHover: 'rgba(230,237,243,0.1)',
+    borderHover: 'rgba(230,237,243,0.25)',
+    glow: '0 0 20px rgba(230,237,243,0.08)',
+  },
+  {
+    icon: <Mail size={20} color="#22d3ee" />,
+    label: 'Send us an email',
+    description: 'Reach the integrations team directly at integrations@orbit.io.',
+    href: 'mailto:integrations@orbit.io',
+    color: 'rgba(34,211,238,0.06)',
+    border: 'rgba(34,211,238,0.15)',
+    colorHover: 'rgba(34,211,238,0.12)',
+    borderHover: 'rgba(34,211,238,0.4)',
+    glow: '0 0 20px rgba(34,211,238,0.12)',
+  },
+  {
+    icon: <MessageCircle size={20} color="#818cf8" />,
+    label: 'Vote in the community',
+    description: 'Upvote and discuss integration ideas with other Orbit users.',
+    href: '#integration',
+    color: 'rgba(129,140,248,0.06)',
+    border: 'rgba(129,140,248,0.15)',
+    colorHover: 'rgba(129,140,248,0.12)',
+    borderHover: 'rgba(129,140,248,0.4)',
+    glow: '0 0 20px rgba(129,140,248,0.12)',
+  },
+];
+
+function RequestDropdown() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="feature-card rounded-2xl overflow-hidden"
+    >
+      {/* Header row — always visible, clickable */}
+      <button
+        onClick={() => setOpen((v: boolean) => !v)}
+        className="w-full px-8 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 cursor-pointer"
+      >
+        <p className="text-white/70 text-sm md:text-base text-left">
+          Don't see your tool? We're adding new integrations every week.
+        </p>
+        <span className="flex items-center gap-2 text-cyan-400 font-semibold text-sm whitespace-nowrap shrink-0">
+          Request an integration
+          <motion.span
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            style={{ display: 'flex' }}
+          >
+            <ChevronDown size={16} />
+          </motion.span>
+        </span>
+      </button>
+
+      {/* Expandable content */}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            key="dropdown"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="px-8 pt-6 pb-8 flex flex-col gap-4 border-t border-white/5">
+              <p className="text-white/40 text-xs">
+                Pick a channel and tell us what you need — we prioritize based on votes and demand.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {CHANNELS.map((ch, i) => (
+                  <motion.a
+                    key={i}
+                    href={ch.href}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex flex-col gap-2 p-4 rounded-xl group hover:scale-[1.02] transition-all duration-300"
+                    style={{
+                      background: ch.color,
+                      border: `1px solid ${ch.border}`,
+                      transition: 'background 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease',
+                    }}
+                    whileHover={{
+                      background: ch.colorHover,
+                      borderColor: ch.borderHover,
+                      boxShadow: ch.glow,
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      {ch.icon}
+                      <span className="text-sm font-semibold text-white/90">{ch.label}</span>
+                      <ArrowRight size={13} className="ml-auto text-white/30 group-hover:text-white/60 group-hover:translate-x-0.5 transition-all" />
+                    </div>
+                    <p className="text-xs text-white/40 leading-relaxed">{ch.description}</p>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
 
 export default function IntegrationsSection() {
   return (
@@ -89,46 +210,50 @@ export default function IntegrationsSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="space-y-3"
+        className="space-y-3 pb-4"
       >
-        <LogoLoop
-          logos={LOGOS_ROW1}
-          direction="left"
-          speed={80}
-          pauseOnHover
-          fadeOut
-          fadeOutColor="#03040e"
-          logoHeight={56}
-          gap={8}
-        />
-        <LogoLoop
-          logos={LOGOS_ROW2}
-          direction="right"
-          speed={70}
-          pauseOnHover
-          fadeOut
-          fadeOutColor="#03040e"
-          logoHeight={56}
-          gap={8}
-        />
+        {/* Mobile: 1 Row with all logos */}
+        <div className="block md:hidden">
+          <LogoLoop
+            logos={[...LOGOS_ROW1, ...LOGOS_ROW2]}
+            direction="left"
+            speed={80}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+        </div>
+
+        {/* Desktop: 2 Rows */}
+        <div className="hidden md:block space-y-3">
+          <LogoLoop
+            logos={LOGOS_ROW1}
+            direction="left"
+            speed={80}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+          <LogoLoop
+            logos={LOGOS_ROW2}
+            direction="right"
+            speed={70}
+            pauseOnHover
+            fadeOut
+            fadeOutColor="#03040e"
+            logoHeight={56}
+            gap={8}
+          />
+        </div>
       </motion.div>
 
-      {/* CTA strip */}
-      <div className="max-w-6xl mx-auto px-4 mt-12">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="feature-card rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4"
-        >
-          <p className="text-white/70 text-sm md:text-base">
-            Don't see your tool? We're adding new integrations every week.
-          </p>
-          <button className="flex items-center gap-2 text-cyan-400 font-semibold text-sm hover:gap-3 transition-all whitespace-nowrap cursor-pointer">
-            Request an integration <ArrowRight className="w-4 h-4" />
-          </button>
-        </motion.div>
+      {/* CTA strip — dropdown */}
+      <div className="max-w-6xl mx-auto px-4 my-12">
+        <RequestDropdown />
       </div>
     </section>
   );

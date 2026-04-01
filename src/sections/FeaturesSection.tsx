@@ -42,13 +42,13 @@ function WaterBar({ heightPct }: { heightPct: number }) {
       >
         {/* Primary wave — water surface */}
         <motion.div
-          style={{ position: 'absolute', top: -7, left: 0, width: '200%' }}
+          style={{ position: 'absolute', top: -12, left: 0, width: '200%' }}
           animate={{ x: ['0%', '-50%'] }}
           transition={{ duration: 2.6, repeat: Infinity, ease: 'linear' }}
         >
-          <svg viewBox="0 0 200 12" preserveAspectRatio="none" style={{ width: '100%', height: 12, display: 'block' }}>
+          <svg viewBox="0 0 200 24" preserveAspectRatio="none" style={{ width: '100%', height: 24, display: 'block' }}>
             <path
-              d="M0,6 C16.7,0 33.3,12 50,6 C66.7,0 83.3,12 100,6 C116.7,0 133.3,12 150,6 C166.7,0 183.3,12 200,6 L200,12 L0,12 Z"
+              d="M0,12 C16.7,0 33.3,24 50,12 C66.7,0 83.3,24 100,12 C116.7,0 133.3,24 150,12 C166.7,0 183.3,24 200,12 L200,24 L0,24 Z"
               fill="rgba(0,210,255,0.9)"
             />
           </svg>
@@ -56,13 +56,13 @@ function WaterBar({ heightPct }: { heightPct: number }) {
 
         {/* Secondary wave — depth layer */}
         <motion.div
-          style={{ position: 'absolute', top: -4, left: 0, width: '200%', opacity: 0.35 }}
+          style={{ position: 'absolute', top: -8, left: 0, width: '200%', opacity: 0.35 }}
           animate={{ x: ['-25%', '-75%'] }}
           transition={{ duration: 3.4, repeat: Infinity, ease: 'linear' }}
         >
-          <svg viewBox="0 0 200 10" preserveAspectRatio="none" style={{ width: '100%', height: 10, display: 'block' }}>
+          <svg viewBox="0 0 200 20" preserveAspectRatio="none" style={{ width: '100%', height: 20, display: 'block' }}>
             <path
-              d="M0,5 C20,0 40,10 60,5 C80,0 100,10 120,5 C140,0 160,10 180,5 C190,2.5 195,7.5 200,5 L200,10 L0,10 Z"
+              d="M0,10 C20,0 40,20 60,10 C80,0 100,20 120,10 C140,0 160,20 180,10 C190,5 195,15 200,10 L200,20 L0,20 Z"
               fill="rgba(160,230,255,0.8)"
             />
           </svg>

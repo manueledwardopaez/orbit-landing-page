@@ -19,6 +19,13 @@ export default function TypewriterHeading() {
           showCursor={true}
           variableSpeed={undefined}
           onSentenceComplete={undefined}
+          lastWordClassName="bg-linear-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
+          shinyLastWord={true}
+          shinyLastWordProps={{
+            gradient: "linear-gradient(120deg, transparent 40%, #ffffff 50%, transparent 60%), linear-gradient(to right, #22d3ee 0%, #3b82f6 100%)",
+            bgSize: "200% auto, 100% auto",
+            speed: 3
+          }}
         />
       </h1>
     </>

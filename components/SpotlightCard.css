@@ -1,0 +1,113 @@
+.card-spotlight {
+  position: relative;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.02);
+  padding: 1.75rem;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.04);
+  transition: border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card-spotlight:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 210, 255, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(0, 210, 255, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 24px rgba(0, 210, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.card-spotlight:hover::before,
+.card-spotlight:focus-within::before {
+  opacity: 1;
+}
+
+.spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.spotlight-overlay::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.07) 50%,
+    rgba(0, 210, 255, 0.06) 60%,
+    transparent 80%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.65s ease;
+}
+
+.card-spotlight:hover .spotlight-overlay::before {
+  left: 130%;
+}
+
+.spotlight-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 210, 255, 0.6), rgba(100, 160, 255, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.card-spotlight:hover .spotlight-overlay::after {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .card-spotlight {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 210, 255, 0.3);
+    box-shadow:
+      0 0 0 1px rgba(0, 210, 255, 0.08),
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 24px rgba(0, 210, 255, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  
+  .card-spotlight::before {
+    opacity: 1;
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+  }
+
+  .spotlight-overlay::before {
+    left: 130%; 
+  }
+
+  .spotlight-overlay::after {
+    opacity: 1;
+  }
+}

@@ -1,5 +1,7 @@
 import { type ElementType } from "react";
-import { Zap, GitBranch, BarChart3, Shield, Bell, Puzzle } from "lucide-react";
+import {
+  Lightning, TreeStructure, ChartLineUp, ShieldCheck, BellRinging, PuzzlePiece,
+} from "@phosphor-icons/react";
 import {
   SiSlack, SiGithub, SiNotion, SiJira, SiFigma, SiLinear, SiStripe, SiVercel,
   SiZoom, SiHubspot, SiZapier, SiIntercom, SiSalesforce, SiDatadog, SiTwilio,
@@ -10,8 +12,8 @@ export const BASE = "Launch Your ";
 export const PHRASES = [
   "Workflow Into Orbit",
   "Business Into Orbit",
-  "Team To the Orbit",
-  "Company Into Orbit",
+  "Team Into Orbit",
+  "Dreams Into Orbit",
 ];
 
 export type Tool = { name: string; icon: ElementType; color: string; glow: string; bg: string };
@@ -40,8 +42,8 @@ export const TOOLS_ROW2: Tool[] = [
 
 export const FEATURES = [
   {
-    icon: <Zap className="w-6 h-6 text-cyan-400" />,
-    iconLg: <Zap className="w-10 h-10 text-cyan-400" />,
+    icon: <Lightning weight="duotone" size={24} color="#22d3ee" />,
+    iconLg: <Lightning weight="duotone" size={40} color="#22d3ee" />,
     title: "Instant Automation",
     description: "Eliminate repetitive tasks with smart triggers and flows that run in the background, 24/7.",
     detail: "Our intelligent automation engine learns your team's patterns and surfaces workflow suggestions before you even need them. From simple task assignments to complex multi-step pipelines — set it once and let Orbit handle the rest around the clock.",
@@ -53,8 +55,8 @@ export const FEATURES = [
     accent: "#22d3ee",
   },
   {
-    icon: <GitBranch className="w-6 h-6 text-blue-400" />,
-    iconLg: <GitBranch className="w-10 h-10 text-blue-400" />,
+    icon: <TreeStructure weight="duotone" size={24} color="#60a5fa" />,
+    iconLg: <TreeStructure weight="duotone" size={40} color="#60a5fa" />,
     title: "Visual Workflows",
     description: "Drag-and-drop builder to design multi-step processes without writing a single line of code.",
     detail: "Build complex multi-step automations through an intuitive drag-and-drop canvas. Connect triggers, conditions, and actions visually. Share and collaborate on workflow templates with your entire team in real time.",
@@ -66,8 +68,8 @@ export const FEATURES = [
     accent: "#60a5fa",
   },
   {
-    icon: <BarChart3 className="w-6 h-6 text-indigo-400" />,
-    iconLg: <BarChart3 className="w-10 h-10 text-indigo-400" />,
+    icon: <ChartLineUp weight="duotone" size={24} color="#818cf8" />,
+    iconLg: <ChartLineUp weight="duotone" size={40} color="#818cf8" />,
     title: "Real-time Analytics",
     description: "Track performance, bottlenecks and team velocity with dashboards that update live.",
     detail: "Get a live pulse on your team's performance with dashboards that refresh in milliseconds. Drill into bottlenecks, track sprint velocity, and surface actionable insights before they become blockers.",
@@ -79,8 +81,8 @@ export const FEATURES = [
     accent: "#818cf8",
   },
   {
-    icon: <Shield className="w-6 h-6 text-cyan-400" />,
-    iconLg: <Shield className="w-10 h-10 text-cyan-400" />,
+    icon: <ShieldCheck weight="duotone" size={24} color="#22d3ee" />,
+    iconLg: <ShieldCheck weight="duotone" size={40} color="#22d3ee" />,
     title: "Enterprise Security",
     description: "SOC 2 compliant with role-based access, SSO, and end-to-end encryption built in.",
     detail: "Built from the ground up for enterprise requirements. SOC 2 Type II certified, GDPR compliant, with granular role-based access controls, SSO via SAML/OIDC, and AES-256 encryption for all data in transit and at rest.",
@@ -92,8 +94,8 @@ export const FEATURES = [
     accent: "#22d3ee",
   },
   {
-    icon: <Bell className="w-6 h-6 text-blue-400" />,
-    iconLg: <Bell className="w-10 h-10 text-blue-400" />,
+    icon: <BellRinging weight="duotone" size={24} color="#60a5fa" />,
+    iconLg: <BellRinging weight="duotone" size={40} color="#60a5fa" />,
     title: "Smart Notifications",
     description: "Stay in the loop without noise. Context-aware alerts that surface what actually matters.",
     detail: "Orbit's notification engine uses context signals to determine exactly when to alert you — and when to stay quiet. No more notification fatigue. The right information at the right moment, delivered wherever your team works.",
@@ -105,8 +107,8 @@ export const FEATURES = [
     accent: "#60a5fa",
   },
   {
-    icon: <Puzzle className="w-6 h-6 text-indigo-400" />,
-    iconLg: <Puzzle className="w-10 h-10 text-indigo-400" />,
+    icon: <PuzzlePiece weight="duotone" size={24} color="#818cf8" />,
+    iconLg: <PuzzlePiece weight="duotone" size={40} color="#818cf8" />,
     title: "100+ Integrations",
     description: "Connect with the tools your team already uses — Slack, GitHub, Notion, Jira and more.",
     detail: "Plug Orbit into your existing stack in minutes. Native two-way integrations with Slack, GitHub, Notion, Jira, Figma, and 100+ more tools keep everything in context without ever leaving your workflow.",
@@ -122,42 +124,42 @@ export const FEATURES = [
 export const TESTIMONIALS = [
   {
     quote: "Orbit cut our sprint planning time in half. The automation alone saved us 6 hours a week per engineer.",
-    name: "Sarah Chen",
+    name: "Sarah Malik",
     role: "Engineering Lead @ Helios",
     avatar: "https://i.pravatar.cc/80?img=47",
     stars: 5,
   },
   {
     quote: "Finally a tool that actually connects everything. We replaced three apps with Orbit and never looked back.",
-    name: "Marcus Wright",
+    name: "Marcus McBride",
     role: "Head of Product @ Nova Labs",
     avatar: "https://i.pravatar.cc/80?img=52",
     stars: 5,
   },
   {
     quote: "The analytics are insane. We spotted a bottleneck in our pipeline on day one and fixed it immediately.",
-    name: "Priya Sharma",
+    name: "Priya Mehta",
     role: "CTO @ Stellar Systems",
     avatar: "https://i.pravatar.cc/80?img=45",
     stars: 5,
   },
   {
     quote: "Onboarding was seamless. We were fully set up and running automated workflows within the first afternoon.",
-    name: "Tomás Rivera",
+    name: "Tomás Gómez",
     role: "Ops Manager @ Vega Co",
     avatar: "https://i.pravatar.cc/80?img=33",
     stars: 5,
   },
   {
     quote: "The notification system is thoughtful. No noise, just the right alert at the right time. Love it.",
-    name: "Aiko Nakamura",
+    name: "Aiko Ito",
     role: "Designer @ Cosmo Studio",
     avatar: "https://i.pravatar.cc/80?img=49",
     stars: 5,
   },
   {
     quote: "We've tried everything. Orbit is the only platform that feels like it was actually built for how teams work.",
-    name: "Liam O'Brien",
+    name: "Liam Mcdonald",
     role: "Founder @ PulseTech",
     avatar: "https://i.pravatar.cc/80?img=53",
     stars: 5,
