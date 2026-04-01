@@ -62,7 +62,7 @@ export default function TestimonialsSection() {
               transition={{ duration: 0.5, delay: i * 0.07 }}
               className={i >= 3 ? 'hidden md:block h-full' : 'h-full'}
             >
-              <SpotlightCard className="h-full flex flex-col gap-5 group" spotlightColor="rgba(0, 200, 255, 0.12)">
+              <SpotlightCard className="h-full flex flex-col gap-5 group cursor-pointer" spotlightColor="rgba(0, 200, 255, 0.12)">
                 {/* Stars */}
                 <div className="flex gap-1">
                   {Array.from({ length: t.stars }).map((_, s) => (

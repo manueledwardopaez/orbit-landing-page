@@ -12,8 +12,8 @@ export const BASE = "Launch Your ";
 export const PHRASES = [
   "Workflow Into Orbit",
   "Business Into Orbit",
-  "Team To the Orbit",
-  "Company Into Orbit",
+  "Team Into Orbit",
+  "Dreams Into Orbit",
 ];
 
 export type Tool = { name: string; icon: ElementType; color: string; glow: string; bg: string };
