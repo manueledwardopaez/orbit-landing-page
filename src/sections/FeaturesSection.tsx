@@ -7,7 +7,7 @@ import ShinyText from "../../components/ShinyText";
 import DecryptedText from "../../components/DecryptedText";
 import MagicBento from "../../components/MagicBento";
 import { FEATURES } from "../utils/constants";
-import astronautThumbnail from "../images/png-clipart-astronaut-astronaut-thumbnail.webp";
+import astronautThumbnailSrcSet from "../images/png-clipart-astronaut-astronaut-thumbnail.webp?w=150;300;600&format=webp&as=srcset";
 
 // ── Analytics mini bar chart ──────────────────────────────────────────────
 const BARS = [
@@ -250,7 +250,8 @@ export default function FeaturesSection() {
       {/* Floating astronaut */}
       <div className="absolute right-[4%] top-[12%] z-10 pointer-events-none select-none">
         <img
-          src={astronautThumbnail}
+          srcSet={astronautThumbnailSrcSet}
+          sizes="(max-width: 768px) 144px, (max-width: 1024px) 208px, 256px"
           alt="Floating astronaut"
           className="astronaut-float w-36 md:w-52 lg:w-64 opacity-90"
         />

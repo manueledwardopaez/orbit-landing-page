@@ -1,6 +1,7 @@
 import { Heart, Zap } from "lucide-react";
 import { SOCIAL_LINKS } from "../utils/constants";
 import { REDIRECTS } from "../utils/redirect";
+import helmetSrcSet from '../images/Astronaut-Helmet-PNG-File.webp?w=72;144;288&format=webp&as=srcset';
 
 export default function Footer() {
   return (
@@ -12,7 +13,8 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <a href="#">
                 <img
-                  src="/images/Astronaut-Helmet-PNG-File.webp"
+                  srcSet={helmetSrcSet}
+                  sizes="36px"
                   alt="Orbit logo"
                   className="w-9 h-9 rounded-full object-cover"
                 />

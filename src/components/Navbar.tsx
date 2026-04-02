@@ -1,3 +1,5 @@
+import helmetSrcSet from '../images/Astronaut-Helmet-PNG-File.webp?w=72;144;288&format=webp&as=srcset';
+
 export default function Navbar() {
   return (
     <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4">
@@ -5,7 +7,8 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
         <a href="#">
           <img
-              src="/images/Astronaut-Helmet-PNG-File.webp"
+              srcSet={helmetSrcSet}
+              sizes="36px"
               alt="Orbit logo"
               className="w-9 h-9 rounded-full object-cover"
             />

@@ -7,6 +7,7 @@ import SectionBadge from "../components/SectionBadge";
 import ScrollBlur from "../components/ScrollBlur";
 import ShinyText from "../../components/ShinyText";
 
+import ipadAstronautSrcSet from "../images/astronaut_with_ipad.webp?w=200;400;800&format=webp&as=srcset";
 import LogoLoop from "../../components/LogoLoop";
 import { TOOLS_ROW1, TOOLS_ROW2, type Tool } from "../utils/constants";
 import { REDIRECTS } from "../utils/redirect";
@@ -174,7 +175,8 @@ export default function IntegrationsSection() {
         className="absolute left-0 top-20 pointer-events-none select-none z-0 md:z-20"
       >
         <img
-          src="/images/astronaut_with_ipad.webp"
+          srcSet={ipadAstronautSrcSet}
+          sizes="(max-width: 768px) 208px, (max-width: 1024px) 256px, 288px"
           alt="Astronaut with iPad"
           className="astronaut-ipad-float w-52 md:w-64 lg:w-72"
         />
