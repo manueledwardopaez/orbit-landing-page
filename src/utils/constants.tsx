@@ -7,6 +7,8 @@ import {
   SiZoom, SiHubspot, SiZapier, SiIntercom, SiSalesforce, SiDatadog, SiTwilio,
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
+import { Github, Linkedin } from "lucide-react";
+import { REDIRECTS } from "./redirect";
 
 export const BASE = "Launch Your ";
 export const PHRASES = [
@@ -19,25 +21,25 @@ export const PHRASES = [
 export type Tool = { name: string; icon: ElementType; color: string; glow: string; bg: string };
 
 export const TOOLS_ROW1: Tool[] = [
-  { name: "Slack",    icon: SiSlack,             color: "#ECB22E", glow: "rgba(236,178,46,0.35)",  bg: "rgba(74,21,75,0.25)"    },
-  { name: "GitHub",   icon: SiGithub,            color: "#e6edf3", glow: "rgba(230,237,243,0.2)",  bg: "rgba(36,41,46,0.35)"    },
-  { name: "Notion",   icon: SiNotion,            color: "#ffffff", glow: "rgba(255,255,255,0.18)", bg: "rgba(25,25,25,0.35)"    },
-  { name: "Jira",     icon: SiJira,              color: "#4BADE8", glow: "rgba(75,173,232,0.35)",  bg: "rgba(0,82,204,0.2)"     },
-  { name: "Figma",    icon: SiFigma,             color: "#F24E1E", glow: "rgba(242,78,30,0.35)",   bg: "rgba(242,78,30,0.15)"   },
-  { name: "Linear",   icon: SiLinear,            color: "#5E6AD2", glow: "rgba(94,106,210,0.35)",  bg: "rgba(94,106,210,0.15)"  },
-  { name: "Stripe",   icon: SiStripe,            color: "#635BFF", glow: "rgba(99,91,255,0.35)",   bg: "rgba(99,91,255,0.15)"   },
-  { name: "Vercel",   icon: SiVercel,            color: "#ffffff", glow: "rgba(255,255,255,0.2)",  bg: "rgba(0,0,0,0.4)"        },
+  { name: "Slack", icon: SiSlack, color: "#ECB22E", glow: "rgba(236,178,46,0.35)", bg: "rgba(74,21,75,0.25)" },
+  { name: "GitHub", icon: SiGithub, color: "#e6edf3", glow: "rgba(230,237,243,0.2)", bg: "rgba(36,41,46,0.35)" },
+  { name: "Notion", icon: SiNotion, color: "#ffffff", glow: "rgba(255,255,255,0.18)", bg: "rgba(25,25,25,0.35)" },
+  { name: "Jira", icon: SiJira, color: "#4BADE8", glow: "rgba(75,173,232,0.35)", bg: "rgba(0,82,204,0.2)" },
+  { name: "Figma", icon: SiFigma, color: "#F24E1E", glow: "rgba(242,78,30,0.35)", bg: "rgba(242,78,30,0.15)" },
+  { name: "Linear", icon: SiLinear, color: "#5E6AD2", glow: "rgba(94,106,210,0.35)", bg: "rgba(94,106,210,0.15)" },
+  { name: "Stripe", icon: SiStripe, color: "#635BFF", glow: "rgba(99,91,255,0.35)", bg: "rgba(99,91,255,0.15)" },
+  { name: "Vercel", icon: SiVercel, color: "#ffffff", glow: "rgba(255,255,255,0.2)", bg: "rgba(0,0,0,0.4)" },
 ];
 
 export const TOOLS_ROW2: Tool[] = [
-  { name: "AWS",       icon: FaAws,               color: "#FF9900", glow: "rgba(255,153,0,0.35)",   bg: "rgba(255,153,0,0.12)"   },
-  { name: "Zoom",      icon: SiZoom,              color: "#2D8CFF", glow: "rgba(45,140,255,0.35)",  bg: "rgba(45,140,255,0.12)"  },
-  { name: "HubSpot",   icon: SiHubspot,           color: "#FF7A59", glow: "rgba(255,122,89,0.35)",  bg: "rgba(255,122,89,0.12)"  },
-  { name: "Zapier",    icon: SiZapier,            color: "#FF4A00", glow: "rgba(255,74,0,0.35)",    bg: "rgba(255,74,0,0.12)"    },
-  { name: "Intercom",  icon: SiIntercom,          color: "#1F8EFA", glow: "rgba(31,142,250,0.35)",  bg: "rgba(31,142,250,0.12)"  },
-  { name: "Salesforce",icon: SiSalesforce,        color: "#00A1E0", glow: "rgba(0,161,224,0.35)",   bg: "rgba(0,161,224,0.12)"   },
-  { name: "Datadog",   icon: SiDatadog,           color: "#632CA6", glow: "rgba(99,44,166,0.35)",   bg: "rgba(99,44,166,0.12)"   },
-  { name: "Twilio",    icon: SiTwilio,            color: "#F22F46", glow: "rgba(242,47,70,0.35)",   bg: "rgba(242,47,70,0.12)"   },
+  { name: "AWS", icon: FaAws, color: "#FF9900", glow: "rgba(255,153,0,0.35)", bg: "rgba(255,153,0,0.12)" },
+  { name: "Zoom", icon: SiZoom, color: "#2D8CFF", glow: "rgba(45,140,255,0.35)", bg: "rgba(45,140,255,0.12)" },
+  { name: "HubSpot", icon: SiHubspot, color: "#FF7A59", glow: "rgba(255,122,89,0.35)", bg: "rgba(255,122,89,0.12)" },
+  { name: "Zapier", icon: SiZapier, color: "#FF4A00", glow: "rgba(255,74,0,0.35)", bg: "rgba(255,74,0,0.12)" },
+  { name: "Intercom", icon: SiIntercom, color: "#1F8EFA", glow: "rgba(31,142,250,0.35)", bg: "rgba(31,142,250,0.12)" },
+  { name: "Salesforce", icon: SiSalesforce, color: "#00A1E0", glow: "rgba(0,161,224,0.35)", bg: "rgba(0,161,224,0.12)" },
+  { name: "Datadog", icon: SiDatadog, color: "#632CA6", glow: "rgba(99,44,166,0.35)", bg: "rgba(99,44,166,0.12)" },
+  { name: "Twilio", icon: SiTwilio, color: "#F22F46", glow: "rgba(242,47,70,0.35)", bg: "rgba(242,47,70,0.12)" },
 ];
 
 export const FEATURES = [
@@ -164,4 +166,9 @@ export const TESTIMONIALS = [
     avatar: "https://i.pravatar.cc/80?img=53",
     stars: 5,
   },
+];
+
+export const SOCIAL_LINKS = [
+  { icon: Github, href: REDIRECTS.GITHUB },
+  { icon: Linkedin, href: REDIRECTS.LINKEDIN },
 ];

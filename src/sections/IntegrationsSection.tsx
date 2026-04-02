@@ -7,8 +7,10 @@ import SectionBadge from "../components/SectionBadge";
 import ScrollBlur from "../components/ScrollBlur";
 import ShinyText from "../../components/ShinyText";
 
+import ipadAstronautSrcSet from "../images/astronaut_with_ipad.webp?w=200;400;800&format=webp&as=srcset";
 import LogoLoop from "../../components/LogoLoop";
 import { TOOLS_ROW1, TOOLS_ROW2, type Tool } from "../utils/constants";
+import { REDIRECTS } from "../utils/redirect";
 
 const toLogoNodes = (tools: Tool[]) =>
   tools.map((tool) => {
@@ -41,7 +43,7 @@ const CHANNELS = [
     icon: <SiGithub size={20} color="#e6edf3" />,
     label: 'Open a GitHub issue',
     description: 'Browse existing requests or open a new one in our public repo.',
-    href: '#integration',
+    href: REDIRECTS.GITHUB,
     color: 'rgba(230,237,243,0.06)',
     border: 'rgba(230,237,243,0.1)',
     colorHover: 'rgba(230,237,243,0.1)',
@@ -125,6 +127,8 @@ function RequestDropdown() {
                     href={ch.href}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
+                    rel="noopener noreferrer"
+                    target="_blank"
                     transition={{ duration: 0.3, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                     className="flex flex-col gap-2 p-4 rounded-xl group hover:scale-[1.02] transition-all duration-300"
                     style={{
@@ -171,7 +175,8 @@ export default function IntegrationsSection() {
         className="absolute left-0 top-20 pointer-events-none select-none z-0 md:z-20"
       >
         <img
-          src="/images/astronaut_with_ipad.webp"
+          srcSet={ipadAstronautSrcSet}
+          sizes="(max-width: 768px) 208px, (max-width: 1024px) 256px, 288px"
           alt="Astronaut with iPad"
           className="astronaut-ipad-float w-52 md:w-64 lg:w-72"
         />

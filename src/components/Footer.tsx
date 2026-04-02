@@ -1,4 +1,7 @@
-import { Twitter, Github, Linkedin } from "lucide-react";
+import { Heart, Zap } from "lucide-react";
+import { SOCIAL_LINKS } from "../utils/constants";
+import { REDIRECTS } from "../utils/redirect";
+import helmetSrcSet from '../images/Astronaut-Helmet-PNG-File.webp?w=72;144;288&format=webp&as=srcset';
 
 export default function Footer() {
   return (
@@ -8,22 +11,23 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-4">
-            <a href="#">
-              <img
-                  src="/images/Astronaut-Helmet-PNG-File.webp"
+              <a href="#">
+                <img
+                  srcSet={helmetSrcSet}
+                  sizes="36px"
                   alt="Orbit logo"
                   className="w-9 h-9 rounded-full object-cover"
                 />
-            </a>
+              </a>
               <span className="font-display font-bold text-lg">Orbit</span>
             </div>
             <p className="text-white/40 text-sm leading-relaxed max-w-xs">
               The productivity platform built for teams that move fast and ship faster.
             </p>
             <div className="flex items-center gap-3 mt-6">
-              {[Twitter, Github, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-9 h-9 feature-card rounded-xl flex items-center justify-center text-white/40 hover:text-white transition-colors">
-                  <Icon className="w-4 h-4" />
+              {SOCIAL_LINKS.map((link, i) => (
+                <a key={i} rel="noopener noreferrer" target="_blank" href={link.href} className="w-9 h-9 feature-card rounded-xl flex items-center justify-center text-white/40 hover:text-white transition-colors">
+                  <link.icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
@@ -55,9 +59,9 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/25">© {new Date().getFullYear()} Orbit Workflow, Inc. All rights reserved.</p>
-          <div> 
-            <span className="text-xs text-white/25">Made with 💙 by <a href="#" className="text-white/35 underline" >Manuel Paez</a>. For teams that dare to move a the speed of light 🗲</span>
+          <p className="text-xs text-white/80">© {new Date().getFullYear()} Orbit Workflow, Inc. All rights reserved.</p>
+          <div>
+            <span className="text-xs text-white/80">Made with <Heart className="inline-block w-3.5 h-3.5 text-blue-500 fill-blue-500 align-text-bottom mx-0.5" /> by <a href={REDIRECTS.LINKEDIN} rel="noopener noreferrer" target="_blank" className="text-white underline" >Manuel Paez</a>. For teams that dare to move at the speed of light<Zap className="inline-block w-3.5 h-3.5 text-yellow-400 fill-yellow-400 align-text-bottom ml-0.5" />.</span>
           </div>
         </div>
       </div>
