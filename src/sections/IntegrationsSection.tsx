@@ -9,6 +9,7 @@ import ShinyText from "../../components/ShinyText";
 
 import LogoLoop from "../../components/LogoLoop";
 import { TOOLS_ROW1, TOOLS_ROW2, type Tool } from "../utils/constants";
+import { REDIRECTS } from "../utils/redirect";
 
 const toLogoNodes = (tools: Tool[]) =>
   tools.map((tool) => {
@@ -41,7 +42,7 @@ const CHANNELS = [
     icon: <SiGithub size={20} color="#e6edf3" />,
     label: 'Open a GitHub issue',
     description: 'Browse existing requests or open a new one in our public repo.',
-    href: '#integration',
+    href: REDIRECTS.GITHUB,
     color: 'rgba(230,237,243,0.06)',
     border: 'rgba(230,237,243,0.1)',
     colorHover: 'rgba(230,237,243,0.1)',
@@ -125,6 +126,8 @@ function RequestDropdown() {
                     href={ch.href}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
+                    rel="noopener noreferrer"
+                    target="_blank"
                     transition={{ duration: 0.3, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                     className="flex flex-col gap-2 p-4 rounded-xl group hover:scale-[1.02] transition-all duration-300"
                     style={{
