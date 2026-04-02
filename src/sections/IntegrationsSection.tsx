@@ -256,8 +256,8 @@ export default function IntegrationsSection() {
         </div>
       </motion.div>
 
-      {/* CTA strip — dropdown */}
-      <div className="max-w-6xl mx-auto px-4 my-12">
+      {/* CTA strip — dropdown — Hidden on mobile */}
+      <div className="hidden md:block max-w-6xl mx-auto px-4 my-12">
         <RequestDropdown />
       </div>
     </section>
