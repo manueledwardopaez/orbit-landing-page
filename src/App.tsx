@@ -11,7 +11,7 @@ export default function App() {
       {/* Background Layers */}
       <div className="hero-bg" />
       <div className="atmosphere" />
-      
+
       <Navbar />
       <HeroSection />
 
