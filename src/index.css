@@ -36,9 +36,20 @@ body {
 
 /* ── Badge dot pulse ─────────────────────────────────────────────────────── */
 @keyframes badge-ping {
-  0%   { transform: scale(1);   opacity: 0.65; }
-  75%  { transform: scale(2.4); opacity: 0; }
-  100% { transform: scale(2.4); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+
+  75% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
 }
 
 .badge-dot-outer {
@@ -57,17 +68,40 @@ body {
 
 /* ── Star twinkle ────────────────────────────────────────────────────────── */
 @keyframes twinkle {
-  0%, 100% { opacity: var(--star-opacity); transform: scale(1); }
-  50%       { opacity: calc(var(--star-opacity) * 0.2); transform: scale(0.6); }
+
+  0%,
+  100% {
+    opacity: var(--star-opacity);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: calc(var(--star-opacity) * 0.2);
+    transform: scale(0.6);
+  }
 }
 
 /* ── Astronaut float (features) ──────────────────────────────────────────── */
 @keyframes float-drift {
-  0%   { transform: translate(0px, 0px) rotate(-4deg); }
-  25%  { transform: translate(12px, -22px) rotate(2deg); }
-  50%  { transform: translate(-6px, -38px) rotate(-2deg); }
-  75%  { transform: translate(-16px, -18px) rotate(4deg); }
-  100% { transform: translate(0px, 0px) rotate(-4deg); }
+  0% {
+    transform: translate(0px, 0px) rotate(-4deg);
+  }
+
+  25% {
+    transform: translate(12px, -22px) rotate(2deg);
+  }
+
+  50% {
+    transform: translate(-6px, -38px) rotate(-2deg);
+  }
+
+  75% {
+    transform: translate(-16px, -18px) rotate(4deg);
+  }
+
+  100% {
+    transform: translate(0px, 0px) rotate(-4deg);
+  }
 }
 
 .astronaut-float {
@@ -77,18 +111,31 @@ body {
 
 /* ── Astronaut with iPad float (integrations) ────────────────────────────── */
 @keyframes float-ipad {
-  0%   { transform: translate(0px, 0px) rotate(2deg); }
-  25%  { transform: translate(-10px, -24px) rotate(-2deg); }
-  55%  { transform: translate(6px, -40px) rotate(3deg); }
-  80%  { transform: translate(14px, -18px) rotate(-1deg); }
-  100% { transform: translate(0px, 0px) rotate(2deg); }
+  0% {
+    transform: translate(0px, 0px) rotate(2deg);
+  }
+
+  25% {
+    transform: translate(-10px, -24px) rotate(-2deg);
+  }
+
+  55% {
+    transform: translate(6px, -40px) rotate(3deg);
+  }
+
+  80% {
+    transform: translate(14px, -18px) rotate(-1deg);
+  }
+
+  100% {
+    transform: translate(0px, 0px) rotate(2deg);
+  }
 }
 
 .astronaut-ipad-float {
   animation: float-ipad 8s ease-in-out infinite;
   filter:
-    drop-shadow(0 0 32px rgba(80, 120, 255, 0.35))
-    drop-shadow(0 0 64px rgba(0, 200, 255, 0.15));
+    drop-shadow(0 0 32px rgba(80, 120, 255, 0.35)) drop-shadow(0 0 64px rgba(0, 200, 255, 0.15));
 }
 
 /* ── Typewriter cursor ───────────────────────────────────────────────────── */
@@ -104,19 +151,36 @@ body {
 }
 
 @keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ── Marquee carousel ────────────────────────────────────────────────────── */
 @keyframes marquee-left {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes marquee-right {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .marquee-track {
@@ -191,12 +255,12 @@ body {
 
 .marquee-fade-wrapper::before {
   left: 0;
-  background: linear-gradient(to right, #060812 0%, rgba(6,8,18,0.85) 40%, transparent 100%);
+  background: linear-gradient(to right, #060812 0%, rgba(6, 8, 18, 0.85) 40%, transparent 100%);
 }
 
 .marquee-fade-wrapper::after {
   right: 0;
-  background: linear-gradient(to left, #060812 0%, rgba(6,8,18,0.85) 40%, transparent 100%);
+  background: linear-gradient(to left, #060812 0%, rgba(6, 8, 18, 0.85) 40%, transparent 100%);
 }
 
 .hero-bottom-fade {
@@ -205,13 +269,11 @@ body {
   left: 0;
   right: 0;
   height: 45%;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(6, 8, 18, 0.4) 40%,
-    rgba(6, 8, 18, 0.85) 70%,
-    #060812 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(6, 8, 18, 0.4) 40%,
+      rgba(6, 8, 18, 0.85) 70%,
+      #060812 100%);
   z-index: 1;
 }
 
@@ -233,13 +295,11 @@ body {
   left: -80%;
   width: 55%;
   height: 220%;
-  background: linear-gradient(
-    105deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.07) 50%,
-    rgba(0, 210, 255, 0.06) 60%,
-    transparent 80%
-  );
+  background: linear-gradient(105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.07) 50%,
+      rgba(0, 210, 255, 0.06) 60%,
+      transparent 80%);
   transform: skewX(-15deg);
   transition: left 0.65s ease;
   pointer-events: none;
@@ -327,12 +387,10 @@ body {
   width: 90%;
   height: 80%;
   border-radius: 50%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 210, 255, 0.55) 0%,
-    rgba(80, 140, 255, 0.25) 45%,
-    transparent 70%
-  );
+  background: radial-gradient(ellipse at center,
+      rgba(0, 210, 255, 0.55) 0%,
+      rgba(80, 140, 255, 0.25) 45%,
+      transparent 70%);
   filter: blur(10px);
   opacity: 0;
   pointer-events: none;
@@ -354,7 +412,7 @@ body {
 }
 
 .atmosphere {
-  background: 
+  background:
     radial-gradient(circle at 50% 45%, rgba(0, 210, 255, 0.2) 0%, transparent 40%),
     radial-gradient(circle at 50% 45%, rgba(0, 100, 255, 0.1) 0%, transparent 60%);
   filter: blur(100px);
@@ -370,7 +428,7 @@ body {
 .hero-bg {
   background-image:
     linear-gradient(to bottom, rgba(10, 5, 2, 0.1), rgba(10, 5, 2, 0.4)),
-    url('./images/unnamed (1).png');
+    url('./images/Hero_mobile.webp');
   background-size: cover;
   background-position: center;
   position: fixed;
@@ -416,8 +474,7 @@ button {
       rgba(6, 8, 18, 0.1) 40%,
       rgba(6, 8, 18, 0.1) 60%,
       rgba(6, 8, 18, 0.4) 85%,
-      #060812 100%
-    );
+      #060812 100%);
   z-index: 1;
 }
 
@@ -537,9 +594,11 @@ button {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
     scroll-behavior: smooth;
