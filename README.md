@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Orbit Workflow
 
-# Run and deploy your AI Studio app
+Orbit Workflow is a high-performance, visually stunning landing page built using modern web technologies. It features smooth animations, responsive design, and a premium user experience.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/d72bdba9-99de-4b93-b1e0-05b8efad4ac7
+- **Framework:** [React 19](https://react.dev/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/)
+- **Animations:** [GSAP](https://gsap.com/) & [Motion](https://motion.dev/)
+- **Icons:** [Phosphor Icons](https://phosphoricons.com/) & [Lucide React](https://lucide.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Graphics:** [OGL](https://github.com/o-g-l/ogl) (WebGL)
 
-## Run Locally
+## Preview
 
-**Prerequisites:**  Node.js
+* Desktop
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+![Orbit Workflow Desktop Preview](public/images/desktop.png)
